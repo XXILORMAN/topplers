@@ -19,6 +19,9 @@
   .pv-page { position: relative; overflow: clip; padding-bottom: 150px; }
   .pv-page .hero-clouds { position: absolute; inset: 0; pointer-events: none; }
   .pv-wrap { position: relative; z-index: 2; max-width: 860px; margin-inline: auto; padding: 56px 20px 0; display: grid; gap: 18px; }
+  /* il blocco della lingua e' a sua volta una griglia: senza, i titoli toccavano le schede (lo spazio della .pv-wrap non arrivava qui dentro) */
+  .pv-lang, html.js[lang="it"] .pv-lang[data-l="it"], html.js[lang="en"] .pv-lang[data-l="en"] { display: grid; gap: 18px; }
+  .pv-lang > * { margin-block: 0; }
   .pv-title { font-size: clamp(44px, 8vw, 78px); }
   .pv-meta { font-weight: 600; color: var(--ink); background: var(--pill); border: 2px solid var(--line); border-radius: 18px; padding: 10px 18px 12px; }
   h2.pl.pv-h { font-size: clamp(26px, 4vw, 36px); justify-self: start; margin-top: 14px; }
@@ -28,7 +31,6 @@
   .pv-body a { color: var(--blue-lo); font-weight: 600; }
   .pv-sum { background: #fff2cf; border: 2px solid #f2dd9a; border-radius: 22px; padding: 20px 24px; margin: 0; }
   .pv-sum p { color: var(--ink); font-size: 17px; }
-  .pv-svc { margin-top: -6px; }
   .pv-svc .st p { margin: 0; }
   .pv-page .hills { height: 110px; }
   .pv-back { justify-self: start; display: inline-flex; gap: 8px; align-items: center; font-family: var(--f-display); font-size: 18px; text-decoration: none; color: #fffbea; background: var(--blue); padding: 8px 20px 10px; border-radius: 14px; box-shadow: 0 4px 0 var(--blue-lo); text-shadow: 0 2px 0 #123a73; }
