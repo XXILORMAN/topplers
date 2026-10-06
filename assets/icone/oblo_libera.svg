@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+<clipPath id="dentro1gioca">
+<circle cx="64" cy="64" r="49"/>
+</clipPath>
+</defs>
+<circle cx="64" cy="67" r="60" fill="#2a5272"/>
+<circle cx="64" cy="64" r="60" fill="#488ec4" stroke="#2b5576" stroke-width="4"/>
+<path d="M 110 76 A 47 47 0 0 1 76 110" fill="none" stroke="#2f5c7f" stroke-opacity="0.55" stroke-width="5" stroke-linecap="round"/>
+<path d="M 18 52 A 47 47 0 0 1 52 18" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round"/>
+<circle cx="64" cy="64" r="49" fill="#79c5f2" stroke="#284e6c" stroke-width="4"/>
+<g clip-path="url(#dentro1gioca)">
+<rect x="0" y="66" width="128" height="62" fill="#a9dcf7"/>
+</g>
+<g clip-path="url(#dentro1gioca)">
+<circle cx="34" cy="36" r="12" fill="#fff3b0" fill-opacity="0.55"/>
+<circle cx="34" cy="36" r="8" fill="#ffd84a" stroke="#e0a400" stroke-width="2"/>
+<g fill="#ffffff" fill-opacity="0.92">
+<ellipse cx="90" cy="34" rx="9.9" ry="5.4"/>
+<ellipse cx="83.7" cy="34.9" rx="6.3" ry="4.5"/>
+<ellipse cx="93.6" cy="30.4" rx="6.3" ry="5.4"/>
+</g>
+<path d="M 10 96 Q 22 90 34 96 T 58 96 T 82 96 T 106 96 T 130 96 L 130 130 L 0 130 Z" fill="#2f9be0" stroke="#1b5f95" stroke-width="3"/>
+<path d="M 14 104 Q 24 100 34 104 M 70 108 Q 80 104 90 108" fill="none" stroke="#ffffff" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
+<rect x="42" y="86" width="44" height="12" rx="3" fill="#a86b42" stroke="#5a3417" stroke-width="3"/>
+<rect x="51" y="74" width="13" height="13" rx="2.1" fill="#FFC71A" stroke="#735a0c" stroke-width="2.2"/>
+<rect x="52.8" y="75.6" width="6.5" height="2.1" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="57.5" cy="81.5" r="2.6" fill="none" stroke="#b28b12" stroke-width="0.9"/>
+<rect x="64" y="74" width="13" height="13" rx="2.1" fill="#FFC71A" stroke="#735a0c" stroke-width="2.2"/>
+<rect x="65.8" y="75.6" width="6.5" height="2.1" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="70.5" cy="81.5" r="2.6" fill="none" stroke="#b28b12" stroke-width="0.9"/>
+<rect x="51" y="61" width="13" height="13" rx="2.1" fill="#F5384A" stroke="#6e1921" stroke-width="2.2"/>
+<rect x="52.8" y="62.6" width="6.5" height="2.1" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="57.5" cy="68.5" r="2.6" fill="none" stroke="#ab2734" stroke-width="0.9"/>
+<rect x="64" y="61" width="13" height="13" rx="2.1" fill="#1CB8ED" stroke="#0d536b" stroke-width="2.2"/>
+<rect x="65.8" y="62.6" width="6.5" height="2.1" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="70.5" cy="68.5" r="2.6" fill="none" stroke="#1481a6" stroke-width="0.9"/>
+<rect x="57.5" y="48" width="13" height="13" rx="2.1" fill="#AB4AE8" stroke="#4d2168" stroke-width="2.2"/>
+<rect x="59.3" y="49.6" width="6.5" height="2.1" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="64.0" cy="55.5" r="2.6" fill="none" stroke="#7834a2" stroke-width="0.9"/>
+<rect x="57.5" y="35" width="13" height="13" rx="2.1" fill="#45C940" stroke="#1f5a1d" stroke-width="2.2"/>
+<rect x="59.3" y="36.6" width="6.5" height="2.1" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="64.0" cy="42.5" r="2.6" fill="none" stroke="#308d2d" stroke-width="0.9"/>
+</g>
+</svg>

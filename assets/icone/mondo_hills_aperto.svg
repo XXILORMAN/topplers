@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+<clipPath id="dentrompianure">
+<circle cx="64" cy="64" r="49"/>
+</clipPath>
+</defs>
+<circle cx="64" cy="67" r="60" fill="#2a5272"/>
+<circle cx="64" cy="64" r="60" fill="#488ec4" stroke="#2b5576" stroke-width="4"/>
+<path d="M 110 76 A 47 47 0 0 1 76 110" fill="none" stroke="#2f5c7f" stroke-opacity="0.55" stroke-width="5" stroke-linecap="round"/>
+<path d="M 18 52 A 47 47 0 0 1 52 18" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round"/>
+<circle cx="64" cy="64" r="49" fill="#79c5f2" stroke="#284e6c" stroke-width="4"/>
+<g clip-path="url(#dentrompianure)">
+<rect x="0" y="0" width="128" height="128" fill="#8fd0f5"/>
+<rect x="0" y="62" width="128" height="66" fill="#c6ebfb"/>
+</g>
+<g clip-path="url(#dentrompianure)">
+<circle cx="92" cy="38" r="13" fill="#fff3b0" fill-opacity="0.55"/>
+<circle cx="92" cy="38" r="9" fill="#ffd84a" stroke="#e0a400" stroke-width="2"/>
+<g fill="#ffffff" fill-opacity="0.92">
+<ellipse cx="40" cy="36" rx="11.0" ry="6.0"/>
+<ellipse cx="33.0" cy="37.0" rx="7.0" ry="5.0"/>
+<ellipse cx="44.0" cy="32.0" rx="7.0" ry="6.0"/>
+</g>
+<ellipse cx="30" cy="110" rx="54" ry="34" fill="#6db84a" stroke="#4a8a2e" stroke-width="3"/>
+<ellipse cx="96" cy="116" rx="56" ry="38" fill="#7cc456" stroke="#4a8a2e" stroke-width="3"/>
+<path d="M 20 118 C 40 100 60 98 74 84" fill="none" stroke="#e8d7a6" stroke-width="5" stroke-linecap="round"/>
+<rect x="76" y="66" width="11" height="11" rx="1.8" fill="#FF8C17" stroke="#733f0a" stroke-width="2.2"/>
+<rect x="77.5" y="67.3" width="5.5" height="1.8" rx="0.9" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="81.5" cy="72.4" r="2.2" fill="none" stroke="#b26210" stroke-width="0.8"/>
+<rect x="87" y="66" width="11" height="11" rx="1.8" fill="#FF8C17" stroke="#733f0a" stroke-width="2.2"/>
+<rect x="88.5" y="67.3" width="5.5" height="1.8" rx="0.9" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="92.5" cy="72.4" r="2.2" fill="none" stroke="#b26210" stroke-width="0.8"/>
+<rect x="76" y="55" width="11" height="11" rx="1.8" fill="#1CB8ED" stroke="#0d536b" stroke-width="2.2"/>
+<rect x="77.5" y="56.3" width="5.5" height="1.8" rx="0.9" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="81.5" cy="61.4" r="2.2" fill="none" stroke="#1481a6" stroke-width="0.8"/>
+</g>
+</svg>

@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Topplers</title>
+<meta name="description" content="Topplers: a physics puzzle for your phone. Stack the pieces, defy gravity, reach the summit. / Un rompicapo con la fisica per il telefono.">
+<meta name="theme-color" content="#5aa6f5">
+<meta property="og:title" content="Topplers">
+<meta property="og:description" content="Build towers. Defy physics. A physics puzzle for your phone.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/keyart.webp">
+<link rel="icon" href="assets/lettere/T.webp" type="image/webp">
+<link rel="preload" as="image" href="assets/keyart_sm.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/componenti.css">
+<link rel="stylesheet" href="css/sezioni.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<noscript><p style="margin:0;padding:14px 20px;background:#fffdf5;color:#1a2e47;font:600 16px system-ui">Topplers needs JavaScript to show its tower and demo. / Topplers richiede JavaScript per mostrare la torre e la demo.</p></noscript>
+<a class="skip" href="#top" data-t="skip"></a>
+<canvas id="cielo" aria-hidden="true"></canvas>
+<div id="fx" aria-hidden="true"></div>
+
+<!-- avanzamento (telefoni) -->
+<div class="progress" id="progress" aria-hidden="true"><i></i></div>
+
+<!-- torre laterale che cresce con lo scroll (schermi larghi) -->
+<aside class="torre" id="torre" aria-label="Tower">
+  <div class="t-hud"><b id="tMeters">0</b><span>m</span></div>
+  <div class="t-stack" id="tStack"></div>
+  <div class="t-base" aria-hidden="true"></div>
+  <p class="t-oops" id="tOops" aria-hidden="true" data-t="tower_oops"></p>
+</aside>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Topplers"><span>T</span><span>O</span><span>P</span><span>P</span><span>L</span><span>E</span><span>R</span><span>S</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#custom" data-t="nav_lab"></a>
+      <a href="#worlds" data-t="nav_worlds"></a>
+      <a href="#rewards" data-t="nav_rewards"></a>
+      <a href="#goals" data-t="nav_goals"></a>
+      <a href="#team" data-t="nav_team"></a>
+    </nav>
+    <div class="tools">
+      <button class="tool" id="skybtn" type="button" aria-label="Sky" title="Sky">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>
+      </button>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="it" aria-pressed="false">IT</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero" data-world="plains" data-tp>
+    <div class="stars" aria-hidden="true"></div>
+    <button class="orb" id="orb" type="button" aria-label="Sky"></button>
+    <div class="hero-clouds" aria-hidden="true"><div class="cloud c1"><i></i></div><div class="cloud c2"><i></i></div><div class="cloud c3"><i></i></div></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="kicker" data-t="hero_kicker"></span>
+        <div class="marchio" id="marchio" role="img" aria-label="Topplers" translate="no"><div class="asse"></div></div>
+        <h1 class="claim pl" data-t="hero_h1"></h1>
+        <p class="lead" data-t="hero_lead"></p>
+        <div class="ctas">
+          <a class="btn" href="#custom" data-t="cta_play"></a>
+          <a class="btn blue" id="ksbtn" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
+        </div>
+        <div class="chips">
+          <span class="chip" data-t="chip1"></span><span class="chip" data-t="chip2"></span><span class="chip" data-t="chip3"></span><span class="chip" data-t="chip4"></span>
+        </div>
+        <p class="toy-hint" data-t="toy_hint"></p>
+      </div>
+      <div class="hero-art" id="heroart">
+        <div class="phone" data-tilt><img src="assets/keyart_sm.webp" width="520" height="920" alt="Topplers key art"></div>
+      </div>
+    </div>
+    <div class="pila" id="pilaHero" aria-hidden="true"></div>
+    <a class="scroll-cue" href="#why" aria-label="Scroll"><span data-t="scroll_cue"></span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </section>
+
+  <div class="ribbon-box r1" aria-hidden="true"><div class="ribbon" data-dir="-1"><div class="rb-track"></div></div></div>
+
+  <!-- ===== PERCHE' ===== -->
+  <section id="why" data-world="plains" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="why_h"></h2><p class="lede" data-t="why_p"></p></div>
+      <div class="why">
+        <article class="card" data-rv="pop" data-tilt>
+          <svg class="ico" viewBox="0 0 54 54" aria-hidden="true"><rect x="8" y="30" width="38" height="16" rx="5" fill="#ff8c17" stroke="#9a4d05" stroke-width="3"/><rect x="14" y="12" width="26" height="16" rx="5" fill="#ab4ae8" stroke="#5f1f92" stroke-width="3"/><path d="M18 17h10" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/></svg>
+          <h3 data-t="why1_h"></h3><p data-t="why1_p"></p>
+        </article>
+        <article class="card" data-rv="pop" data-tilt>
+          <svg class="ico" viewBox="0 0 54 54" aria-hidden="true"><path d="M10 44h34" stroke="#3b5770" stroke-width="4" stroke-linecap="round"/><rect x="14" y="20" width="26" height="20" rx="5" fill="#2969f5" stroke="#123a73" stroke-width="3" transform="rotate(12 27 30)"/><path d="M8 12l6 6M46 12l-6 6" stroke="#ed3b36" stroke-width="4" stroke-linecap="round"/></svg>
+          <h3 data-t="why2_h"></h3><p data-t="why2_p"></p>
+        </article>
+        <article class="card" data-rv="pop" data-tilt>
+          <svg class="ico" viewBox="0 0 54 54" aria-hidden="true"><rect x="6" y="32" width="18" height="14" rx="4" fill="#45c940" stroke="#1d6b1a" stroke-width="3"/><rect x="28" y="32" width="18" height="14" rx="4" fill="#1cb8ed" stroke="#0a6e91" stroke-width="3"/><rect x="17" y="14" width="18" height="14" rx="4" fill="#ffc71a" stroke="#9a7400" stroke-width="3"/></svg>
+          <h3 data-t="why3_h"></h3><p data-t="why3_p"></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MONDI: scorrimento laterale fissato ===== -->
+  <section id="worlds" class="hs" data-tp>
+    <div class="hs-pin" id="hsPin">
+      <div class="hs-track" id="hsTrack">
+        <article class="hs-panel hs-intro" data-sky="plains">
+          <div class="hs-in wrap">
+            <div class="hs-text">
+              <h2 class="pl" data-t="worlds_h"></h2>
+              <p class="lede" data-t="worlds_p"></p>
+              <div class="hs-badges"><span class="tag t1" data-t="w_plains"></span><span class="tag t2" data-t="w_ice"></span><span class="tag t3" data-t="w_lava"></span></div>
+              <p class="hs-hint"><span data-t="hs_hint"></span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+            </div>
+          </div>
+        </article>
+      <article class="hs-panel w1" data-sky="plains">
+        <div class="hs-bg" aria-hidden="true">
+          <span class="hs-big" data-t="w_plains"></span>
+          <div class="hs-fx wind"><i style="top:14%;width:220px;animation-delay:-0s"></i><i style="top:26%;width:320px;animation-delay:-1.1s"></i><i style="top:38%;width:260px;animation-delay:-0.5s"></i><i style="top:52%;width:360px;animation-delay:-1.8s"></i><i style="top:64%;width:200px;animation-delay:-2.4s"></i><i style="top:74%;width:300px;animation-delay:-3.1s"></i></div>
+          <svg class="hs-ground" viewBox="0 0 1200 220" preserveAspectRatio="none"><path d="M0 220V120C150 70 300 70 450 110S750 160 900 110 1100 60 1200 100V220Z" fill="#5fa83d"/><path d="M0 220V165C200 125 350 135 520 165S850 205 1000 165 1150 135 1200 155V220Z" fill="#7cc456"/></svg>
+        </div>
+        <div class="hs-in wrap">
+          <div class="hs-text">
+            <span class="tag"><b>01</b><span data-t="w_plains"></span></span>
+            <h3 data-t="wd1_t"></h3>
+            <p class="hs-desc" data-t="wd1_p"></p>
+            <ul class="mech"><li><b data-t="m1a_t"></b><span class="d" data-t="m1a_d"></span></li><li><b data-t="m1b_t"></b><span class="d" data-t="m1b_d"></span></li><li><b data-t="m1c_t"></b><span class="d" data-t="m1c_d"></span></li><li><b data-t="m1d_t"></b><span class="d" data-t="m1d_d"></span></li><li class="sig"><b data-t="m1s_t"></b><span class="d" data-t="m1s_d"></span></li></ul>
+          </div>
+          <div class="hs-phone"><div class="phone"><video data-clip muted loop playsinline preload="none" width="540" height="960" poster="assets/clip/pianure.webp" aria-hidden="true"><source src="assets/clip/pianure.mp4" type="video/mp4"></video></div></div>
+        </div>
+      </article>
+      <article class="hs-panel w2" data-sky="ice">
+        <div class="hs-bg" aria-hidden="true">
+          <span class="hs-big" data-t="w_ice"></span>
+          <div class="hs-fx snow"><i style="left:0%;animation-delay:-0.0s;animation-duration:6.0s;--s:5px"></i><i style="left:53%;animation-delay:-0.9s;animation-duration:7.0s;--s:7px"></i><i style="left:6%;animation-delay:-1.8s;animation-duration:8.0s;--s:9px"></i><i style="left:59%;animation-delay:-2.7s;animation-duration:9.0s;--s:5px"></i><i style="left:12%;animation-delay:-3.6s;animation-duration:6.0s;--s:7px"></i><i style="left:65%;animation-delay:-4.5s;animation-duration:7.0s;--s:9px"></i><i style="left:18%;animation-delay:-5.4s;animation-duration:8.0s;--s:5px"></i><i style="left:71%;animation-delay:-6.3s;animation-duration:9.0s;--s:7px"></i><i style="left:24%;animation-delay:-7.2s;animation-duration:6.0s;--s:9px"></i><i style="left:77%;animation-delay:-8.1s;animation-duration:7.0s;--s:5px"></i><i style="left:30%;animation-delay:-9.0s;animation-duration:8.0s;--s:7px"></i><i style="left:83%;animation-delay:-9.9s;animation-duration:9.0s;--s:9px"></i><i style="left:36%;animation-delay:-10.8s;animation-duration:6.0s;--s:5px"></i><i style="left:89%;animation-delay:-11.7s;animation-duration:7.0s;--s:7px"></i><i style="left:42%;animation-delay:-12.6s;animation-duration:8.0s;--s:9px"></i><i style="left:95%;animation-delay:-13.5s;animation-duration:9.0s;--s:5px"></i><i style="left:48%;animation-delay:-14.4s;animation-duration:6.0s;--s:7px"></i><i style="left:1%;animation-delay:-15.3s;animation-duration:7.0s;--s:9px"></i></div>
+          <svg class="hs-ground" viewBox="0 0 1200 220" preserveAspectRatio="none"><path d="M0 220V150L120 70 220 140 330 40 450 150 560 90 690 160 800 60 920 150 1040 100 1200 170V220Z" fill="#cfe0ee"/><path d="M0 220V180L160 130 300 180 460 120 620 185 780 140 960 190 1200 150V220Z" fill="#ffffff"/></svg>
+        </div>
+        <div class="hs-in wrap">
+          <div class="hs-text">
+            <span class="tag"><b>02</b><span data-t="w_ice"></span></span>
+            <h3 data-t="wd2_t"></h3>
+            <p class="hs-desc" data-t="wd2_p"></p>
+            <ul class="mech"><li><b data-t="m2a_t"></b><span class="d" data-t="m2a_d"></span></li><li><b data-t="m2b_t"></b><span class="d" data-t="m2b_d"></span></li></ul>
+          </div>
+          <div class="hs-phone"><div class="phone"><video data-clip muted loop playsinline preload="none" width="540" height="960" poster="assets/clip/ghiaccio.webp" aria-hidden="true"><source src="assets/clip/ghiaccio.mp4" type="video/mp4"></video></div></div>
+        </div>
+      </article>
+      <article class="hs-panel w3" data-sky="lava">
+        <div class="hs-bg" aria-hidden="true">
+          <span class="hs-big" data-t="w_lava"></span>
+          <div class="hs-fx ember"><i style="left:9%;animation-delay:-0.0s;animation-duration:4.0s"></i><i style="left:46%;animation-delay:-0.7s;animation-duration:5.0s"></i><i style="left:83%;animation-delay:-1.4s;animation-duration:6.0s"></i><i style="left:20%;animation-delay:-2.1s;animation-duration:4.0s"></i><i style="left:57%;animation-delay:-2.8s;animation-duration:5.0s"></i><i style="left:94%;animation-delay:-3.5s;animation-duration:6.0s"></i><i style="left:31%;animation-delay:-4.2s;animation-duration:4.0s"></i><i style="left:68%;animation-delay:-4.9s;animation-duration:5.0s"></i><i style="left:5%;animation-delay:-5.6s;animation-duration:6.0s"></i><i style="left:42%;animation-delay:-6.3s;animation-duration:4.0s"></i><i style="left:79%;animation-delay:-7.0s;animation-duration:5.0s"></i><i style="left:16%;animation-delay:-7.7s;animation-duration:6.0s"></i><i style="left:53%;animation-delay:-8.4s;animation-duration:4.0s"></i><i style="left:90%;animation-delay:-9.1s;animation-duration:5.0s"></i></div>
+          <svg class="hs-ground" viewBox="0 0 1200 220" preserveAspectRatio="none"><defs><linearGradient id="lavag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb13b"/><stop offset=".45" stop-color="#e4470f"/><stop offset="1" stop-color="#8c1b0a"/></linearGradient></defs><path d="M0 220V120L100 90 200 130 320 70 440 120 560 80 700 135 820 85 960 125 1080 95 1200 130V220Z" fill="#2a1616"/><path d="M0 220V180C200 160 400 200 600 178S1000 160 1200 182V220Z" fill="url(#lavag)"/></svg>
+        </div>
+        <div class="hs-in wrap">
+          <div class="hs-text">
+            <span class="tag"><b>03</b><span data-t="w_lava"></span></span>
+            <h3 data-t="wd3_t"></h3>
+            <p class="hs-desc" data-t="wd3_p"></p>
+            <ul class="mech"><li><b data-t="m3a_t"></b><span class="d" data-t="m3a_d"></span></li><li><b data-t="m3b_t"></b><span class="d" data-t="m3b_d"></span></li></ul>
+          </div>
+          <div class="hs-phone"><div class="phone"><video data-clip muted loop playsinline preload="none" width="540" height="960" poster="assets/clip/lava.webp" aria-hidden="true"><source src="assets/clip/lava.mp4" type="video/mp4"></video></div></div>
+        </div>
+      </article>
+      </div>
+      <div class="hs-ui" id="hsUi"><div class="hs-rail"><i id="hsFill"></i></div><div class="hs-stops" id="hsStops"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== POTENZIAMENTI ===== -->
+  <section id="powerups" data-world="orbit" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="pu_h"></h2><p class="lede" data-t="pu_p"></p></div>
+      <div class="pus" id="pulist"></div>
+    </div>
+  </section>
+
+  <!-- ===== PERSONALIZZAZIONE: ANTEPRIMA ===== -->
+  <section id="custom" data-world="dawn" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="cu_h"></h2><p class="lede" data-t="cu_p"></p></div>
+      <div class="lab" data-rv="pop">
+        <div class="lab-stage" id="labStage" role="img" data-t-aria="lab_stage">
+          <div class="lab-sun" aria-hidden="true"></div>
+          <div class="lab-cloud c-a" aria-hidden="true"></div><div class="lab-cloud c-b" aria-hidden="true"></div>
+          <div class="lab-far" aria-hidden="true"></div>
+          <img class="lab-base" id="labBase" alt="" width="300" height="784">
+          <div class="lab-stack" id="labStack"></div>
+          <div class="lab-ground" aria-hidden="true"></div>
+          <button class="lab-pet" id="labPet" type="button" aria-label="Pet"></button>
+          <p class="lab-name" id="labName" aria-live="polite"></p>
+        </div>
+        <div class="lab-ctrl" id="labCtrl" data-tab="skins">
+          <div class="lab-tabs" id="labTabs" role="tablist">
+            <button type="button" role="tab" data-tab="skins" aria-selected="true" data-t="lab_pieces"></button>
+            <button type="button" role="tab" data-tab="bases" aria-selected="false" data-t="lab_base"></button>
+            <button type="button" role="tab" data-tab="pets" aria-selected="false" data-t="lab_pet"></button>
+          </div>
+          <div class="lab-tiles" id="labSkins" role="group" data-t-aria="lab_pieces"></div>
+          <div class="lab-tiles" id="labBases" role="group" data-t-aria="lab_base"></div>
+          <div class="lab-tiles" id="labPets" role="group" data-t-aria="lab_pet"></div>
+          <p class="lab-hint" data-t="lab_hint"></p>
+        </div>
+      </div>
+      <div class="card titles" data-rv="pop">
+        <h3 data-t="cu3_h"></h3><p data-t="cu3_p"></p>
+        <div class="targhe" id="targhe"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COSTRUZIONE LIBERA ===== -->
+  <section id="free" data-world="plains" data-tp>
+    <div class="wrap free">
+      <div class="free-text">
+        <h2 class="pl" data-t="free_h"></h2>
+        <p class="lede" data-t="free_p"></p>
+        <div class="altimetro" id="alt" data-rv="pop">
+          <div class="alt-top"><span data-t="fb_rec"></span><output id="altOut" for="altRange"><b>0</b> m</output></div>
+          <input type="range" id="altRange" min="0" max="65" step="1" value="0" data-t-aria="fb_drag">
+          <p class="alt-note" data-t="fb_drag"></p>
+          <ul class="miles" id="miles"></ul>
+        </div>
+      </div>
+      <div class="free-phone" id="freePhone"></div>
+    </div>
+  </section>
+
+  <!-- ===== STATO ===== -->
+  <section id="status" data-world="ice" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="status_h"></h2><p class="lede" data-t="status_p"></p></div>
+      <div class="status" id="statuslist"></div>
+    </div>
+  </section>
+
+  <!-- ===== RICOMPENSE ===== -->
+  <section id="rewards" data-world="lava" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="rew_h"></h2><p class="lede" data-t="rew_p"></p></div>
+      <div class="tiers" id="tiers"></div>
+    </div>
+  </section>
+
+  <div class="ribbon-box r2" aria-hidden="true"><div class="ribbon" data-dir="1"><div class="rb-track"></div></div></div>
+
+  <!-- ===== STRETCH GOAL ===== -->
+  <section id="goals" data-world="orbit" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="goals_h"></h2><p class="lede" data-t="goals_p"></p></div>
+      <div class="simcard" data-rv="pop">
+        <div class="row"><label for="sim" data-t="sim_label"></label><output id="simout" for="sim"></output></div>
+        <input type="range" id="sim" min="1500" max="7000" step="50" value="3200">
+        <small data-t="sim_note"></small>
+      </div>
+      <div class="goals">
+        <div class="tower" id="tower" aria-hidden="true"></div>
+        <div class="glist" id="glist"></div>
+      </div>
+      <p class="morewrap" data-t="more_goals"></p>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP ===== -->
+  <section id="roadmap" data-world="orbit" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="road_h"></h2></div>
+      <div class="roadwrap">
+        <svg class="roadline" id="roadline" viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true"><line x1="5" y1="0" x2="5" y2="100" /></svg>
+        <img class="climber" id="roadClimber" alt="" src="assets/pezzi/lego_T.webp" width="64" height="43" aria-hidden="true">
+        <ul class="road" id="road"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM ===== -->
+  <section id="team" data-world="dawn" data-tp>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="pl" data-t="team_h"></h2></div>
+      <div class="team">
+        <div class="card" data-rv="left">
+          <p data-t="team_p1"></p><p data-t="team_p2"></p><p data-t="team_p3"></p>
+        </div>
+        <div data-rv="right">
+          <div class="duo">
+            <div class="who"><div class="av" style="background:#ff8c17">T</div><div><b>Tiziano</b><span data-t="who1"></span></div></div>
+            <div class="who"><div class="av" style="background:#2969f5">G</div><div><b>Gianluca</b><span data-t="who2"></span></div></div>
+          </div>
+          <div class="risk"><h3 data-t="help_h"></h3><p data-t="help_p"></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER + COUNTDOWN + CHIUSURA ===== -->
+  <section class="closing" id="join" data-world="dawn" data-tp>
+    <div class="pila" id="pilaClose" aria-hidden="true"></div>
+    <div class="wrap inner">
+      <h2 class="pl" data-t="close_h"></h2>
+      <p class="lede" data-t="close_p"></p>
+      <div class="countdown" id="countdown" role="timer" aria-live="off">
+        <p class="cd-label" id="cdLabel"></p>
+        <div class="cd-row" id="cdRow">
+          <div class="cd"><b data-u="d">00</b><span data-t="cd_d"></span></div>
+          <div class="cd"><b data-u="h">00</b><span data-t="cd_h"></span></div>
+          <div class="cd"><b data-u="m">00</b><span data-t="cd_m"></span></div>
+          <div class="cd"><b data-u="s">00</b><span data-t="cd_s"></span></div>
+        </div>
+      </div>
+      <form class="news" id="news" novalidate>
+        <label class="sr" for="email" data-t="news_label"></label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required data-t-ph="news_ph">
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" data-t="news_btn"></button>
+        <p class="news-msg" id="newsMsg" role="status" aria-live="polite"></p>
+      </form>
+      <a class="btn blue" id="ksbtn2" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
+    </div>
+    <div class="hills" aria-hidden="true"><svg viewBox="0 0 1200 90" preserveAspectRatio="none"><path d="M0 90V50C120 20 240 20 360 45S600 75 780 45 1080 15 1200 40V90Z" fill="#5fa83d"/><path d="M0 90V68C160 40 300 52 460 66S760 84 940 60 1120 44 1200 60V90Z" fill="#7cc456"/></svg></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span data-t="foot1"></span><span data-t="foot2"></span><a class="foot-priv" href="privacy.html" data-t="foot_priv"></a></div>
+</footer>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/matter.min.js"></script>
+<script src="data/config.js"></script>
+<script src="data/testi.js"></script>
+<script src="js/util.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/impila.js"></script>
+<script src="js/render.js"></script>
+<script src="js/cielo.js"></script>
+<script src="js/torre.js"></script>
+<script src="js/pezzi.js"></script>
+<script src="js/lab.js"></script>
+<script src="js/mondi.js"></script>
+<script src="js/effetti.js"></script>
+<script src="js/libera.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/form.js"></script>
+<script src="js/scroll.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

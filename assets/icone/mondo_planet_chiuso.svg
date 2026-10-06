@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+<clipPath id="dentromorbite">
+<circle cx="64" cy="64" r="49"/>
+</clipPath>
+</defs>
+<circle cx="64" cy="67" r="60" fill="#414b59"/>
+<circle cx="64" cy="64" r="60" fill="#708299" stroke="#434e5c" stroke-width="4"/>
+<path d="M 110 76 A 47 47 0 0 1 76 110" fill="none" stroke="#495463" stroke-opacity="0.55" stroke-width="5" stroke-linecap="round"/>
+<path d="M 18 52 A 47 47 0 0 1 52 18" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round"/>
+<circle cx="64" cy="64" r="49" fill="#79c5f2" stroke="#3e4854" stroke-width="4"/>
+<g clip-path="url(#dentromorbite)">
+<rect x="0" y="0" width="128" height="128" fill="#1f1a4d"/>
+<rect x="0" y="62" width="128" height="66" fill="#2e2769"/>
+</g>
+<g clip-path="url(#dentromorbite)">
+<circle cx="24" cy="30" r="1.8" fill="#ffffff"/>
+<circle cx="98" cy="24" r="1.5" fill="#ffffff"/>
+<circle cx="106" cy="88" r="1.8" fill="#ffffff"/>
+<circle cx="30" cy="92" r="1.4" fill="#ffffff"/>
+<circle cx="70" cy="18" r="1.2" fill="#ffffff"/>
+<circle cx="16" cy="64" r="1.2" fill="#ffffff"/>
+<circle cx="64" cy="68" r="24" fill="#8e7bd6" stroke="#4a3c8a" stroke-width="3"/>
+<path d="M 50 56 C 58 50 70 52 76 58" fill="none" stroke="#b3a6ea" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="64" cy="70" rx="44" ry="11" fill="none" stroke="#ffd166" stroke-width="5" transform="rotate(-14 64 70)"/>
+<rect x="90" y="28" width="12" height="12" rx="1.9" fill="#AB4AE8" stroke="#4d2168" stroke-width="2.2"/>
+<rect x="91.7" y="29.4" width="6.0" height="1.9" rx="1.0" fill="#ffffff" fill-opacity="0.45"/>
+<circle cx="96.0" cy="35.0" r="2.4" fill="none" stroke="#7834a2" stroke-width="0.8"/>
+</g>
+</svg>
