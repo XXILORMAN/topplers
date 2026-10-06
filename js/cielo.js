@@ -131,7 +131,7 @@
   }
   function retarget() {
     var tg = target();
-    gsap.to(S, Object.assign({ duration: T.reduce ? .01 : 1.6, ease: "power2.inOut", overwrite: true, onUpdate: T.reduce ? still : null }, tg));
+    gsap.to(S, Object.assign({ duration: T.reduce ? .01 : 2, ease: "sine.inOut", overwrite: true, onUpdate: T.reduce ? still : null }, tg));
   }
 
   T.setWorld = goWorld; /* lo usano anche i mondi a scorrimento laterale */

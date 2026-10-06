@@ -272,10 +272,22 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
 .hs-phone .phone { width: min(260px, 100%); rotate: 0deg; }
 .hs-phone .phone video { border-radius: 26px; background: #10233b; }
 .hs-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.hs-big { position: absolute; left: 6%; bottom: 14%; font-family: var(--f-display); font-size: min(21vw, 320px); line-height: .8; text-transform: uppercase; white-space: nowrap; color: transparent; -webkit-text-stroke: 3px rgba(255, 255, 255, .7); }
+.hs-big { position: absolute; left: 50%; bottom: 14%; font-family: var(--f-display); font-size: min(21vw, 320px); line-height: .8; text-transform: uppercase; white-space: nowrap; text-align: center; color: transparent; -webkit-text-stroke: max(2px, .011em) rgba(255, 255, 255, .7); }
+/* il corpo lo sceglie js/mondi.js (fitBig), perche' la parola intera stia nel pannello */
 .w2 .hs-big { -webkit-text-stroke-color: rgba(255, 255, 255, .85); }
 .w3 .hs-big { -webkit-text-stroke-color: rgba(255, 190, 110, .55); }
 .hs-ground { position: absolute; left: -6%; width: 112%; bottom: 0; height: 26%; min-height: 110px; }
+/* gli elementi del mondo (mulino, montagne con la baita, vulcano): stanno dietro la collina, che ne copre la base */
+.hs-land { position: absolute; right: 5%; bottom: 13%; width: min(13vw, 260px); height: auto; will-change: transform; }
+.hs-chalet { width: min(26vw, 500px); }
+.hs-volcano { width: min(24vw, 470px); }
+.hs-land.hs-small { right: auto; left: 3%; bottom: 12%; width: min(10vw, 190px); }
+.mill-sails { transform-origin: 0 0; transform: translate(120px, 112px); animation: sails 18s linear infinite; }
+@keyframes sails { to { transform: translate(120px, 112px) rotate(360deg); } }
+.hs-smoke { transform-box: fill-box; transform-origin: 50% 100%; animation: smoke 7s ease-out infinite; }
+@keyframes smoke { 0% { transform: translate(0, 18px) scale(.8); opacity: 0; } 30% { opacity: .9; } 100% { transform: translate(16px, -44px) scale(1.3); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mill-sails, .hs-smoke { animation: none; } }
+.hs-flat .mill-sails, .hs-flat .hs-smoke { animation: none; }
 .hs-fx { position: absolute; inset: 0; }
 .hs-fx i { position: absolute; display: block; }
 .hs-fx.wind i { left: -20%; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .85); animation: gust2 3.8s linear infinite; }
@@ -306,7 +318,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
 /* senza JS o con movimento ridotto: pannelli uno sotto l'altro */
 .hs-flat .hs-panel, .hs:not(.hs-on) .hs-panel { padding-block: 56px; }
 .hs-flat .hs-ui { display: none; }
-.hs:not(.hs-on) .hs-big, .hs-flat .hs-big { bottom: 4%; font-size: min(16vw, 220px); opacity: .7; }
+.hs:not(.hs-on) .hs-big, .hs-flat .hs-big { bottom: 4%; font-size: min(16vw, 220px); opacity: .7; translate: -50% 0; }
 
 @media (max-height: 760px) { .mech .d { display: none; } .hs-desc { font-size: 15.5px; } .hs-text { padding: 20px 22px 22px; gap: 9px; } }
 @media (max-width: 760px) {
@@ -325,6 +337,10 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
   .hs-on .hs-phone { align-self: start; margin-bottom: 0; }
   .hs-big { font-size: 34vw; bottom: 30%; }
   .hs-ground { height: 20%; }
+  .hs-land { width: 46vw; right: 3%; bottom: 14%; }
+  .hs-chalet { width: 64vw; }
+  .hs-volcano { width: 62vw; }
+  .hs-land.hs-small { width: 28vw; left: 2%; }
   .hs-intro .hs-text h2 { font-size: 40px; }
 }
 
