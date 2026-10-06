@@ -282,8 +282,15 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
 .hs-chalet { width: min(26vw, 500px); }
 .hs-volcano { width: min(24vw, 470px); }
 .hs-land.hs-small { right: auto; left: 3%; bottom: 12%; width: min(10vw, 190px); }
-.mill-sails { transform-origin: 0 0; transform: translate(120px, 112px); animation: sails 18s linear infinite; }
-@keyframes sails { to { transform: translate(120px, 112px) rotate(360deg); } }
+.hs-mill { width: min(15vw, 300px); }
+.mill-sails { transform-origin: 0 0; transform: translate(140px, 146px); animation: sails 18s linear infinite; }
+@keyframes sails { to { transform: translate(140px, 146px) rotate(360deg); } }
+/* IL TERRENO CONTINUO: una sola striscia lunga quanto tutta la corsa, sotto i tre mondi (js/mondi.js, buildEarth).
+   Gli elementi del mondo ci sono dentro e ci stanno piantati: si muovono insieme al terreno, non svolazzano. */
+.hs-earth { position: absolute; left: 0; bottom: 0; height: 26%; min-height: 110px; z-index: 1; pointer-events: none; will-change: transform; }
+.hs-earth .hs-hills { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; display: block; }
+.hs-earth .hs-land { right: auto; bottom: auto; left: 0; }
+.hs-on .hs-ground { display: none; }
 .hs-smoke { transform-box: fill-box; transform-origin: 50% 100%; animation: smoke 7s ease-out infinite; }
 @keyframes smoke { 0% { transform: translate(0, 18px) scale(.8); opacity: 0; } 30% { opacity: .9; } 100% { transform: translate(16px, -44px) scale(1.3); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .mill-sails, .hs-smoke { animation: none; } }
@@ -336,7 +343,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
   .hs-phone .phone { width: min(50vw, 200px); }
   .hs-on .hs-phone { align-self: start; margin-bottom: 0; }
   .hs-big { font-size: 34vw; bottom: 30%; }
-  .hs-ground { height: 20%; }
+  .hs-ground, .hs-earth { height: 20%; }
   .hs-land { width: 46vw; right: 3%; bottom: 14%; }
   .hs-chalet { width: 64vw; }
   .hs-volcano { width: 62vw; }
