@@ -339,12 +339,16 @@ window.TESTI = {
       st_ring: `average progress`, st_tap: `Tap an item`, st_tap_d: `Its details show up here, one at a time.`,
       rew_tap: `Tap a floor: it lights up together with the ones below, because each tier includes the previous ones.`,
       gb_ok: `Unlocked`, gb_lock: `Still locked`, gb_none: `No goal yet`, gb_left: `{v} to go`, gb_first: `to the first one: {n}.`,
-      gb_next: `Next: {n}, {v} to go.`, gb_done: `Tower complete!`, gb_secret: `Secret goal`, gb_secret_d: `It is revealed only when we reach it.`, gb_tap: `Tap a porthole to read its goal.` },
+      gb_next: `Next: {n}, {v} to go.`, gb_done: `Tower complete!`, gb_secret: `Secret goal`, gb_secret_d: `It is revealed only when we reach it.`, gb_tap: `Tap a porthole to read its goal.`,
+      fb_view: `A tower that grows with your record`, fb_h: `Height`, fb_drag2: `Drag the slider, or pull the tower up right in the sky.`, fb_go: `Build to the top`,
+      fb_house: `House · 10 m`, fb_colos: `Colosseum · 48 m`, fb_pisa: `Tower of Pisa · 56 m`, fb_got: `Unlocked: {x}` },
     it: { car_prev: `Titolo precedente`, car_next: `Titolo successivo`, tt_tag_w: `Mondo`, tt_tag_b: `Sostenitore`,
       st_ring: `avanzamento medio`, st_tap: `Tocca una voce`, st_tap_d: `I dettagli compaiono qui, una alla volta.`,
       rew_tap: `Tocca un piano: si accende insieme a quelli sotto, perché ogni livello comprende i precedenti.`,
       gb_ok: `Sbloccato`, gb_lock: `Ancora chiuso`, gb_none: `Ancora nessun obiettivo`, gb_left: `Mancano {v}`, gb_first: `al primo: {n}.`,
-      gb_next: `Prossimo: {n}, mancano {v}.`, gb_done: `Torre completa!`, gb_secret: `Obiettivo segreto`, gb_secret_d: `Si svela solo quando lo raggiungiamo.`, gb_tap: `Tocca un oblò per leggere il suo obiettivo.` }
+      gb_next: `Prossimo: {n}, mancano {v}.`, gb_done: `Torre completa!`, gb_secret: `Obiettivo segreto`, gb_secret_d: `Si svela solo quando lo raggiungiamo.`, gb_tap: `Tocca un oblò per leggere il suo obiettivo.`,
+      fb_view: `Una torre che cresce col tuo record`, fb_h: `Altezza`, fb_drag2: `Trascina il cursore, oppure tira su la torre direttamente nel cielo.`, fb_go: `Costruisci fino in cima`,
+      fb_house: `Casa · 10 m`, fb_colos: `Colosseo · 48 m`, fb_pisa: `Torre di Pisa · 56 m`, fb_got: `Sbloccato: {x}` }
   };
   Object.keys(N).forEach(function (l) { Object.assign(window.TESTI[l], N[l]); });
 })();

@@ -23,9 +23,6 @@
     });
   }, { threshold: .25 }) : null;
   T.watchClips = function (root) { if (clipIO) (root || document).querySelectorAll("video[data-clip]").forEach(function (v) { clipIO.observe(v); }); };
-  function clip(nome) {
-    return '<div class="phone" data-tilt><video data-clip muted loop playsinline preload="none" width="540" height="960" poster="assets/clip/' + nome + '.webp" aria-hidden="true"><source src="assets/clip/' + nome + '.mp4" type="video/mp4"></video></div>';
-  }
 
   /* ---- potenziamenti ---- */
   var PUICO = {
@@ -55,7 +52,6 @@
   }
 
   /* ---- costruzione libera: il telefono con la clip ---- */
-  function renderFreePhone() { $("freePhone").innerHTML = clip("libera"); T.watchClips($("freePhone")); }
 
   /* ---- tappe della costruzione libera ---- */
   function renderMiles() {
@@ -178,7 +174,7 @@
   }
 
   T.onLang(function () {
-    setKS(); renderPU(); renderTarghe(); renderFreePhone(); renderMiles(); renderStatus(); renderTiers(); drawGoalsFrame(); renderRoad();
+    setKS(); renderPU(); renderTarghe(); renderMiles(); renderStatus(); renderTiers(); drawGoalsFrame(); renderRoad();
   });
   if ($("sim")) $("sim").addEventListener("input", function () { gShown = null; updateGoals(true); });
 })(window.Topplers);

@@ -16,7 +16,7 @@
   }
   /* dove si ferma il pezzo se cade in colonna col (y verso l'alto, 0 = sulla base) */
   T.landing = function (G, kind, rot, col) {
-    var p = up(kind, rot), x = Math.max(0, Math.min(G.cols - p.w, col)), y = 60;
+    var p = up(kind, rot), x = Math.max(0, Math.min(G.cols - p.w, col)), y = Math.max(60, G.height + 6);
     while (y > 0 && fits(G, p.cells, x, y - 1)) y--;
     return { kind: kind, rot: rot, x: x, y: y, w: p.w, h: p.h, top: y + p.h, cells: p.cells };
   };
