@@ -16,9 +16,14 @@ Si apre anche con doppio clic su `index.html`. Pensato prima per il telefono, po
 - **Newsletter + conto alla rovescia** (placeholder, vedi sotto).
 - IT/EN. Con `prefers-reduced-motion` resta tutto fermo e leggibile.
 
+## Sezione Kickstarter (rimovibile)
+Ricompense, stretch goal, stato dei lavori, roadmap e conto alla rovescia stanno in **una sola sezione** `#kickstarter` (con sottomenu che segue lo scorrimento). Tutto cio' che riguarda la campagna e' marcato `data-ks`: la sezione, il link in barra, i tasti Kickstarter.
+**A fine campagna:** in `data/config.js` metti `KICKSTARTER_ATTIVO: false` e la pagina toglie da sola tutto (`js/ks-flag.js`). Per eliminarla del tutto dal sorgente, cancella il blocco `SEZIONE KICKSTARTER` in `index.html` e gli elementi con `data-ks`.
+
 ## Da compilare in `data/config.js`
 | Valore | Effetto |
 |---|---|
+| `KICKSTARTER_ATTIVO` | `true` mostra la sezione Kickstarter, `false` la toglie. |
 | `KICKSTARTER_URL` | Finche' e' vuoto i tasti Kickstarter sono spenti ("in arrivo"). |
 | `DATA_LANCIO` | Data ISO (`"2026-11-05T16:00:00+01:00"`). Se `null` il conto alla rovescia mostra "data in arrivo". |
 | `FORM_ENDPOINT` | Indirizzo che riceve `{"email","lang"}` in POST JSON (Formspree, Buttondown...). Se vuoto il modulo conferma ma non invia ne' salva niente. |

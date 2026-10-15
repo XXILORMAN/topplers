@@ -1,5 +1,8 @@
 /* Impostazioni del sito: tre valori da compilare al momento giusto. */
 window.CONFIG = {
+  /* Sezione Kickstarter (ricompense, stretch goal, stato, roadmap, conto alla rovescia, tasti e link marcati data-ks).
+     true = visibile. A fine campagna metti false: la pagina la toglie da sola, senza toccare altro. */
+  KICKSTARTER_ATTIVO: true,
   /* Link della campagna. Finche' e' vuoto i tasti Kickstarter restano spenti. */
   KICKSTARTER_URL: "",
   /* Data e ora del lancio, ISO 8601 (es. "2026-11-05T16:00:00+01:00"). Se null il conto alla rovescia dice "data in arrivo". */

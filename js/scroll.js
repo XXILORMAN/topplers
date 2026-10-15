@@ -98,6 +98,7 @@
 
   /* ---------- contatori, meter, righe ---------- */
   function initNumbers() {
+    if (!$("tiers")) return; /* sezione Kickstarter tolta */
     ScrollTrigger.create({ trigger: "#tiers", start: "top 80%", once: true, onEnter: function () {
       document.querySelectorAll(".price[data-count]").forEach(function (el) {
         var n = +el.getAttribute("data-count"), o = { v: 0 };

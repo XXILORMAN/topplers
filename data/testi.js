@@ -318,3 +318,16 @@ window.TESTI = {
   Object.assign(window.TESTI.en, { foot_priv: `Privacy policy` });
   Object.assign(window.TESTI.it, { foot_priv: `Informativa sulla privacy` });
 })();
+
+/* ---------- sezione Kickstarter unica ---------- */
+(function () {
+  var N = {
+    en: { nav_ks: `Kickstarter`, ks_badge: `Kickstarter campaign`, ks_h: `Back Topplers`,
+      ks_p: `Everything about the campaign in one place: rewards, stretch goals, how the work is going and what comes next.`,
+      ks_t1: `Progress`, ks_t2: `Rewards`, ks_t3: `Stretch goals`, ks_t4: `Roadmap` },
+    it: { nav_ks: `Kickstarter`, ks_badge: `Campagna Kickstarter`, ks_h: `Sostieni Topplers`,
+      ks_p: `Tutto sulla campagna in un posto solo: ricompense, stretch goal, a che punto sono i lavori e cosa arriva dopo.`,
+      ks_t1: `Lavori`, ks_t2: `Ricompense`, ks_t3: `Stretch goal`, ks_t4: `Tabella di marcia` }
+  };
+  Object.keys(N).forEach(function (l) { Object.assign(window.TESTI[l], N[l]); });
+})();
