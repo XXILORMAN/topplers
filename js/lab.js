@@ -10,7 +10,8 @@
     { id: "draghetto", w: 112, h: 112, n: 8, d: 1, key: "pet_drago" },
     { id: "geco", w: 96, h: 96, n: 10, d: 1.4, key: "pet_geco" }
   ];
-  var COLS = 7, SEQ = ["I", "L", "O", "J", "T", "Z", "S", "O", "I"]; /* nessun buco, sei piani */
+  /* una torre come quelle vere: larga sul basamento, che si stringe salendo e finisce in due guglie. [pezzo, rotazione, colonna] */
+  var COLS = 7, SEQ = [["I", 0, 1], ["O", 0, 5], ["L", 0, 2], ["J", 1, 3], ["T", 1, 4], ["S", 1, 3], ["Z", 1, 0], ["O", 0, 1], ["T", 1, 3], ["I", 1, 2]];
   var st = { skin: "lego", base: "torrione", pet: "micio" };
   var items = [], cell = 28, stage, stack, baseEl, petEl, nameEl, touched = false, visible = false, step = 0, timer = null;
 
@@ -54,9 +55,9 @@
 
   /* ---- la torre: sempre la stessa, senza buchi ---- */
   function build() {
-    var G = T.newGrid(COLS), none = function () { return 0; };
-    SEQ.forEach(function (kind) {
-      var pos = T.bestSpot(G, kind, none); T.commit(G, pos);
+    var G = T.newGrid(COLS);
+    SEQ.forEach(function (m) {
+      var pos = T.landing(G, m[0], m[1], m[2]); T.commit(G, pos);
       var el = T.pieceEl("div", pos.kind, pos.rot, st.skin);
       el.style.visibility = "hidden"; stack.appendChild(el); T.placeEl(el, pos, cell);
       items.push({ el: el, pos: pos });
