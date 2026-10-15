@@ -1,0 +1,76 @@
+/* Kickstarter: ricompense come torre a piani e stretch goal come sentiero di oblo'. */
+
+/* ---------- ricompense ---------- */
+.piani { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 620px); justify-content: center; gap: 40px; align-items: end; }
+.pi-torre { display: grid; gap: 0; padding-bottom: 6px; }
+.pi-floors { display: flex; flex-direction: column-reverse; align-items: center; gap: 9px; }
+.pi-floor { all: unset; box-sizing: border-box; width: var(--w); min-height: 66px; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 8px 18px;
+  border-radius: 16px; cursor: pointer; color: #fff; background: linear-gradient(var(--c1), var(--c2)); box-shadow: 0 6px 0 var(--c3), inset 0 3px 0 rgba(255, 255, 255, .35);
+  filter: saturate(.3) brightness(.62); transition: transform .4s cubic-bezier(.3, 1.6, .5, 1), filter .35s, box-shadow .3s; }
+.pi-floor:hover { filter: saturate(.6) brightness(.85); }
+.pi-floor.lit { filter: none; }
+.pi-floor.cur { transform: translateY(-5px) scale(1.04); box-shadow: 0 10px 0 var(--c3), 0 0 0 4px var(--gold), inset 0 3px 0 rgba(255, 255, 255, .35); }
+.pi-floor:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+.pi-price { font-family: var(--f-display); font-size: 28px; line-height: 1; white-space: nowrap; color: #fff; text-shadow: 0 3px 0 rgba(0, 0, 0, .28); }
+.pi-name { font-weight: 600; font-size: 15px; line-height: 1.15; text-align: right; text-wrap: balance; text-shadow: 0 2px 0 rgba(0, 0, 0, .28); }
+.pi-base { width: 104%; justify-self: center; height: 20px; margin-top: 10px; border-radius: 7px; background: linear-gradient(#c48a5a, #a86b42); border: 2px solid #5c3a1e; }
+
+.pi-cards { display: grid; min-width: 0; }
+.pi-card { grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; background: var(--paper); border: 3px solid var(--c2); border-radius: 26px; padding: 26px 28px 30px;
+  box-shadow: 0 9px 0 rgba(0, 0, 0, .28); opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+.pi-card.on { opacity: 1; visibility: visible; }
+.pi-head { display: flex; align-items: center; gap: 14px 24px; flex-wrap: wrap; }
+.pi-head .price { font-size: 58px; line-height: 1; }
+.pi-head .targa { width: min(250px, 100%); }
+.pi-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.pi-card.long ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 26px; }
+.pi-card li { position: relative; padding-left: 26px; font-size: 16px; line-height: 1.4; }
+.pi-card li::before { content: ""; position: absolute; left: 2px; top: 5px; width: 12px; height: 12px; border-radius: 4px; background: var(--green); box-shadow: 0 2px 0 var(--green-lo); }
+
+.ks-hint { margin: 16px 0 0; text-align: center; color: #fff; font-size: 15px; font-weight: 600; text-shadow: 0 2px 0 rgba(0, 0, 0, .4); }
+
+/* ---------- stretch goal ---------- */
+.sentiero { display: grid; gap: 20px; background: var(--night); border-radius: 24px; padding: 30px 34px 26px; box-shadow: 0 8px 0 #142544; }
+.se-path { position: relative; height: 104px; margin-inline: 30px; }
+.se-rail, .se-fill { position: absolute; left: 0; top: 40px; height: 10px; border-radius: 99px; }
+.se-rail { right: 0; background: rgba(255, 255, 255, .14); }
+.se-fill { width: 0; background: linear-gradient(90deg, var(--green), var(--gold)); transition: width .25s; }
+.se-o { all: unset; box-sizing: border-box; position: absolute; top: 22px; width: 46px; height: 46px; translate: -50% 0; border-radius: 50%; border: 4px solid #3b5274; background: #182a47;
+  color: #8fa3c4; display: grid; place-items: center; font: 400 18px/1 var(--f-display); cursor: pointer; transition: transform .35s cubic-bezier(.3, 1.8, .5, 1), background .3s, border-color .3s; }
+.se-o.on { background: var(--k); border-color: #fff; color: #fff; transform: scale(1.12); text-shadow: 0 2px 0 rgba(0, 0, 0, .25); }
+.se-o.sel { box-shadow: 0 0 0 5px var(--gold); }
+.se-o:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+.se-amt { position: absolute; top: 80px; translate: -50% 0; font-size: 13px; font-weight: 600; color: #c9d8f2; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.se-walker { position: absolute; z-index: 2; top: -16px; width: 50px; height: auto; max-width: none; translate: -50% 0; transition: left .25s; pointer-events: none; filter: drop-shadow(0 4px 0 rgba(0, 0, 0, .3)); }
+.se-card { display: grid; gap: 6px; max-width: 640px; background: var(--paper); color: var(--ink); border-radius: 20px; padding: 20px 24px; box-shadow: 0 6px 0 rgba(0, 0, 0, .25); }
+.se-card h3 { margin: 0; font: 400 30px/1.1 var(--f-display); letter-spacing: .01em; color: var(--k, var(--ink)); }
+.se-card p { margin: 0; }
+.se-k { font-size: 13px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--shut); }
+.se-k.ok { color: var(--green-lo); }
+.se-next { color: var(--ink2); font-size: 15px; }
+.sentiero .ks-hint { margin: 0; text-align: left; color: #a9bbdb; text-shadow: none; font-size: 14px; }
+
+@media (max-width: 860px) {
+  .piani { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .pi-torre { max-width: 440px; width: 100%; justify-self: center; }
+}
+@media (max-width: 700px) {
+  .pi-floor { min-height: 56px; padding: 6px 14px; }
+  .pi-price { font-size: 23px; }
+  .pi-name { font-size: 14px; }
+  .pi-card { padding: 20px 20px 24px; border-radius: 22px; }
+  .pi-head .price { font-size: 46px; }
+  .pi-head .targa { width: min(210px, 100%); }
+  .pi-card.long ul { grid-template-columns: minmax(0, 1fr); }
+  .sentiero { padding: 22px 14px 20px; }
+  .se-path { height: 74px; margin-inline: 18px; }
+  .se-rail, .se-fill { top: 32px; height: 8px; }
+  .se-o { top: 23px; width: 26px; height: 26px; border-width: 3px; font-size: 12px; }
+  .se-o.on { transform: scale(1.06); }
+  .se-o.sel { box-shadow: 0 0 0 3px var(--gold); }
+  .se-amt { display: none; }
+  .se-walker { width: 36px; top: -6px; }
+  .se-card { padding: 18px; }
+  .se-card h3 { font-size: 25px; }
+}
+@media (prefers-reduced-motion: reduce) { .pi-floor, .pi-card, .se-o, .se-fill, .se-walker { transition: none; } }

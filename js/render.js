@@ -78,49 +78,98 @@
   }
 
   /* ---- ricompense ---- */
+  /* ---- ricompense: una torre a piani. Ogni piano e' un livello; toccandolo si accende con quelli sotto e a lato compare la sua carta.
+     Le cinque carte stanno tutte nella stessa cella della griglia, cosi' il riquadro ha sempre l'altezza della piu' lunga e non salta. ---- */
+  var TIERS = [
+    { p: 10, k: "t1", n: 4, f: "apprendista_sostenitore", c: ["#dc9a68", "#b06a3c", "#7a4424"] },
+    { p: 25, k: "t2", n: 3, f: "costruttore_sostenitore", c: ["#b7c1ce", "#8592a4", "#5d6a7c"] },
+    { p: 50, k: "t3", n: 5, f: "ingegnere_sostenitore", c: ["#f8cf4a", "#e0a514", "#9a6a06"] },
+    { p: 100, k: "t4", n: 7, f: "maestro_delle_torri", c: ["#5aa6f5", "#2f6fd0", "#1b4c95"] },
+    { p: 250, k: "t5", n: 2, f: "arcangelo_dell_architettura", c: ["#b98af2", "#8a52d8", "#5d2fa0"] }
+  ];
+  var tierCur = 2, tierTouched = false, tierTimer = null, tierVisible = false;
   function renderTiers() {
-    if (!$("tiers")) return;
-    function li(p, n) { var s = ""; for (var i = 1; i <= n; i++) s += "<li>" + t(p + "_" + i) + "</li>"; return s; }
-    function price(v) { return '<span class="pl price" data-count="' + v + '">' + T.money(v) + "</span>"; }
-    $("tiers").innerHTML =
-      '<article class="tier" data-rv="pop">' + price(10) + targa("apprendista_sostenitore", t("t1_n")) + "<ul>" + li("t1", 4) + "</ul></article>" +
-      '<article class="tier" data-rv="pop">' + price(25) + targa("costruttore_sostenitore", t("t2_n")) + "<ul>" + li("t2", 3) + "</ul></article>" +
-      '<article class="tier" data-rv="pop">' + price(50) + targa("ingegnere_sostenitore", t("t3_n")) + "<ul>" + li("t3", 5) + "</ul></article>" +
-      '<article class="tier top" data-rv="pop">' + price(100) + targa("maestro_delle_torri", t("t4_n")) + "<ul>" + li("t4", 7) + "</ul></article>" +
-      '<article class="tier top wide" data-rv="pop"><div>' + price(250) + "</div><div>" + targa("arcangelo_dell_architettura", t("t5_n")) + "</div><div><ul>" + li("t5", 2) + "</ul></div></article>";
+    if (!$("piFloors")) return;
+    $("piFloors").innerHTML = TIERS.map(function (x, i) {
+      return '<button type="button" class="pi-floor" data-i="' + i + '" style="--w:' + (100 - i * 6) + "%;--c1:" + x.c[0] + ";--c2:" + x.c[1] + ";--c3:" + x.c[2] + '" aria-pressed="false">' +
+        '<span class="pi-price">' + T.money(x.p) + '</span><span class="pi-name">' + t(x.k + "_n") + "</span></button>";
+    }).join("");
+    $("piCards").innerHTML = TIERS.map(function (x, i) {
+      var li = ""; for (var k = 1; k <= x.n; k++) li += "<li>" + t(x.k + "_" + k) + "</li>";
+      return '<article class="pi-card' + (x.n > 5 ? " long" : "") + '" data-i="' + i + '" style="--c2:' + x.c[1] + '"><div class="pi-head"><span class="pl price">' + T.money(x.p) + "</span>" + targa(x.f, t(x.k + "_n")) + "</div><ul>" + li + "</ul></article>";
+    }).join("");
+    showTier(tierCur, false);
+  }
+  function showTier(i, animate) {
+    tierCur = i;
+    $("piFloors").querySelectorAll(".pi-floor").forEach(function (b, k) { b.classList.toggle("lit", k <= i); b.classList.toggle("cur", k === i); b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    $("piCards").querySelectorAll(".pi-card").forEach(function (c, k) { c.classList.toggle("on", k === i); });
+    if (animate && window.gsap && !T.reduce) {
+      var card = $("piCards").children[i];
+      gsap.fromTo(card.querySelectorAll("li"), { x: 18, opacity: 0 }, { x: 0, opacity: 1, duration: .4, stagger: .05, ease: "back.out(2)", clearProps: "transform,opacity" });
+      gsap.fromTo(card.querySelector(".targa"), { scale: .85, rotation: -4 }, { scale: 1, rotation: 0, duration: .55, ease: "elastic.out(1,.55)", clearProps: "transform" });
+    }
+  }
+  function tierAuto() {
+    clearTimeout(tierTimer); tierTimer = null;
+    if (tierTouched || T.reduce || !tierVisible) return;
+    tierTimer = setTimeout(function () { showTier((tierCur + 1) % TIERS.length, true); tierAuto(); }, 2800);
+  }
+  if ($("piFloors")) {
+    $("piFloors").addEventListener("click", function (e) { var b = e.target.closest(".pi-floor"); if (!b) return; tierTouched = true; clearTimeout(tierTimer); showTier(+b.getAttribute("data-i"), true); });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (v) { tierVisible = v[0].isIntersecting; tierAuto(); }, { threshold: .35 }).observe($("tiers"));
   }
 
-  /* ---- stretch goal ---- */
-  var GOALS = [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000];
-  var GCOL = ["#45C940", "#1CB8ED", "#AB4AE8", "#FF8C17", "#2969F5", "#F5384A", "#FFC71A", "#8A5AD8"];
+  /* ---- stretch goal: un sentiero di oblo'. Il pezzo cammina fino alla cifra del simulatore, gli oblo' raggiunti si colorano,
+     la carta sotto dice l'ultimo obiettivo sbloccato e quanto manca al prossimo (o quello dell'oblo' toccato). ---- */
+  var GOALS = [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000], GMIN = 1500;
+  var GCOL = ["#45C940", "#1CB8ED", "#AB4AE8", "#FF8C17", "#2969F5", "#F5384A", "#E0A514", "#8A5AD8"];
+  var gShown = null, gLast = -2;
+  /* oblo' equidistanti; fra un obiettivo e l'altro il pezzo avanza in proporzione alla cifra */
+  function gx(v) {
+    var pts = [GMIN].concat(GOALS), n = pts.length - 1;
+    v = Math.max(GMIN, Math.min(v, GOALS[GOALS.length - 1]));
+    for (var i = 0; i < n; i++) if (v <= pts[i + 1]) return ((i + (v - pts[i]) / (pts[i + 1] - pts[i])) / n * 100).toFixed(2) + "%";
+    return "100%";
+  }
   function drawGoalsFrame() {
-    if (!$("glist")) return;
-    $("glist").innerHTML = GOALS.map(function (g, i) {
-      return '<div class="g" data-i="' + i + '"><span class="amt">' + T.money(g) + '</span><span class="tx"><b>' + t("g" + i + "_t") + "</b><small>" + t("g" + i + "_d") + '</small></span><span class="st2"></span></div>';
-    }).join("");
-    $("tower").innerHTML = '<div class="base"></div>' + GOALS.map(function (g, i) { return '<div class="blk" data-i="' + i + '"></div>'; }).join("");
-    updateGoals(false);
+    if (!$("sePath")) return;
+    $("sePath").querySelectorAll(".se-o, .se-amt, .se-walker").forEach(function (e) { e.remove(); });
+    $("sePath").insertAdjacentHTML("beforeend", GOALS.map(function (g, i) {
+      var last = i === GOALS.length - 1;
+      return '<button type="button" class="se-o" data-i="' + i + '" style="left:' + gx(g) + ";--k:" + GCOL[i] + '" aria-label="' + T.money(g) + ": " + (last ? t("gb_secret") : t("g" + i + "_t")) + '">' + (last ? "?" : i + 1) + '</button><span class="se-amt" style="left:' + gx(g) + '">' + T.money(g) + "</span>";
+    }).join("") + '<img class="se-walker" id="seWalker" alt="" src="' + T.pieceSrc("T", "lego") + '" width="127" height="85">');
+    gLast = -2; updateGoals(false);
   }
   function updateGoals(animate) {
-    if (!$("sim")) return;
-    var v = +$("sim").value;
+    if (!$("sim") || !$("sePath")) return;
+    var v = +$("sim").value, n = -1;
+    GOALS.forEach(function (g, i) { if (v >= g) n = i; });
     $("simout").textContent = T.money(v);
-    GOALS.forEach(function (g, i) {
-      var lit = v >= g;
-      var row = $("glist").children[i], blk = $("tower").children[i + 1];
-      if (!row || !blk) return;
-      var was = row.classList.contains("on");
-      row.classList.toggle("on", lit); blk.classList.toggle("on", lit);
-      blk.style.background = lit ? "linear-gradient(" + GCOL[i] + "," + T.shade(GCOL[i], -.12) + ")" : "";
-      row.querySelector(".st2").textContent = lit ? "OK" : "";
-      if (animate && lit && !was && window.gsap && !T.reduce) {
-        gsap.fromTo(blk, { y: -80, scaleY: 1.3, scaleX: .85, opacity: 0 }, { y: 0, scaleY: 1, scaleX: 1, opacity: 1, duration: .55, ease: "bounce.out" });
-        gsap.fromTo(row, { x: 24 }, { x: 0, duration: .5, ease: "elastic.out(1,.5)" });
-        var r = blk.getBoundingClientRect(); T.burst(r.left + r.width / 2, r.top, 8, [GCOL[i], "#ffcc3d"]);
+    $("seFill").style.width = gx(v); $("seWalker").style.left = gx(v);
+    var s = gShown == null ? n : gShown;
+    $("sePath").querySelectorAll(".se-o").forEach(function (o, i) {
+      var was = o.classList.contains("on");
+      o.classList.toggle("on", i <= n); o.classList.toggle("sel", i === s);
+      if (animate && i <= n && !was && window.gsap && !T.reduce) {
+        var r = o.getBoundingClientRect(); T.burst(r.left + r.width / 2, r.top + r.height / 2, 8, [GCOL[i], "#ffcc3d"]);
       }
     });
+    var key = s + "|" + n;
+    if (key === gLast) return;
+    gLast = key;
+    var nx = n + 1 < GOALS.length ? n + 1 : -1, html;
+    var nextLine = nx < 0 ? t("gb_done") : t("gb_next").replace("{n}", nx === GOALS.length - 1 ? t("gb_secret") : t("g" + nx + "_t")).replace("{v}", T.money(GOALS[nx] - v));
+    if (s < 0) html = '<span class="se-k">' + t("gb_none") + '</span><h3>' + t("gb_left").replace("{v}", T.money(GOALS[0] - v)) + '</h3><p>' + t("gb_first").replace("{n}", t("g0_t")) + "</p>";
+    else {
+      var got = s <= n, secret = s === GOALS.length - 1 && !got;
+      html = '<span class="se-k' + (got ? " ok" : "") + '">' + (got ? t("gb_ok") : t("gb_lock")) + " · " + T.money(GOALS[s]) + '</span><h3 style="--k:' + GCOL[s] + '">' + (secret ? t("gb_secret") : t("g" + s + "_t")) + "</h3><p>" + (secret ? t("gb_secret_d") : t("g" + s + "_d")) + '</p><p class="se-next">' + nextLine + "</p>";
+    }
+    $("seCard").innerHTML = html;
+    if (animate && window.gsap && !T.reduce) gsap.fromTo($("seCard").children, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: .35, stagger: .05, ease: "power2.out", clearProps: "transform,opacity" });
   }
   T.updateGoals = updateGoals;
+  if ($("sePath")) $("sePath").addEventListener("click", function (e) { var o = e.target.closest(".se-o"); if (o) { gShown = +o.getAttribute("data-i"); updateGoals(true); } });
 
   /* ---- roadmap ---- */
   function renderRoad() {
@@ -131,5 +180,5 @@
   T.onLang(function () {
     setKS(); renderPU(); renderTarghe(); renderFreePhone(); renderMiles(); renderStatus(); renderTiers(); drawGoalsFrame(); renderRoad();
   });
-  if ($("sim")) $("sim").addEventListener("input", function () { updateGoals(true); });
+  if ($("sim")) $("sim").addEventListener("input", function () { gShown = null; updateGoals(true); });
 })(window.Topplers);
