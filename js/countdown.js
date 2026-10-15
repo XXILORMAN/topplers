@@ -2,6 +2,7 @@
 (function (T) {
   "use strict";
   var iso = (window.CONFIG || {}).DATA_LANCIO, target = iso ? Date.parse(iso) : NaN;
+  if (!T.$("cdRow")) return;
   var row = T.$("cdRow"), label = T.$("cdLabel"), cells = {}, last = {}, timer = null;
   row.querySelectorAll("[data-u]").forEach(function (b) { cells[b.getAttribute("data-u")] = b; });
 

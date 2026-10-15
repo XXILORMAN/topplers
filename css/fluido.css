@@ -1,0 +1,28 @@
+/* Ingresso, barra che si nasconde, sezione Kickstarter. */
+.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #5aa6f5; transition: clip-path .9s cubic-bezier(.77,0,.18,1), visibility 0s .9s; clip-path: inset(0 0 0 0); }
+.intro.out { clip-path: inset(0 0 100% 0); visibility: hidden; }
+.intro-t { display: flex; gap: 2px; font-family: "Lilita One", "Fredoka", sans-serif; font-size: clamp(34px, 9vw, 84px); color: #ffd65e; -webkit-text-stroke: 3px #8c2b0d; paint-order: stroke fill; }
+.intro-t span { display: inline-block; transform: translateY(40px) scale(.4); opacity: 0; animation: introLet .6s cubic-bezier(.34,1.56,.64,1) forwards; }
+.intro-t span:nth-child(2) { animation-delay: .06s } .intro-t span:nth-child(3) { animation-delay: .12s } .intro-t span:nth-child(4) { animation-delay: .18s }
+.intro-t span:nth-child(5) { animation-delay: .24s } .intro-t span:nth-child(6) { animation-delay: .3s } .intro-t span:nth-child(7) { animation-delay: .36s } .intro-t span:nth-child(8) { animation-delay: .42s }
+@keyframes introLet { to { transform: none; opacity: 1; } }
+.no-js .intro { display: none; }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+
+.nav { transition: transform .35s cubic-bezier(.3,.7,.2,1), box-shadow .3s; }
+.nav.hide { transform: translateY(-110%); }
+.nav.lift { box-shadow: 0 6px 24px rgba(16, 35, 59, .14); }
+
+/* Kickstarter */
+.ks > .wrap > .sec-head { max-width: 860px; }
+.ks-badge { display: inline-block; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; padding: 7px 14px; border-radius: 999px; background: #1a2e47; color: #ffd65e; }
+.ks-cd { margin: 0 0 28px; justify-items: start; }
+.ks-tabs { position: sticky; top: 64px; z-index: 40; display: flex; gap: 8px; flex-wrap: wrap; padding: 10px; margin: 0 0 40px; background: rgba(255, 253, 245, .94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 2px solid var(--line, #e6dcc0); border-radius: 20px; width: fit-content; max-width: 100%; transition: top .35s; }
+body.nav-hidden .ks-tabs { top: 12px; }
+.ks-tabs a { padding: 9px 16px; border-radius: 14px; font-weight: 600; color: #1a2e47; text-decoration: none; transition: background .25s, color .25s, transform .25s; }
+.ks-tabs a:hover { transform: translateY(-2px); background: rgba(26, 46, 71, .08); }
+.ks-tabs a.on { background: #1a2e47; color: #ffd65e; }
+.ks-block { scroll-margin-top: 130px; padding-block: 28px 56px; }
+.ks-block + .ks-block { border-top: 2px dashed rgba(26, 46, 71, .18); }
+.ks-block .sec-head { margin-bottom: 32px; }
+@media (max-width: 700px) { .ks-tabs { top: 58px; width: auto; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .ks-tabs a { white-space: nowrap; padding: 8px 12px; } }

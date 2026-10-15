@@ -18,10 +18,12 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/componenti.css">
 <link rel="stylesheet" href="css/sezioni.css">
+<link rel="stylesheet" href="css/fluido.css">
 <script>document.documentElement.className = "js";</script>
 </head>
 <body>
 <noscript><p style="margin:0;padding:14px 20px;background:#fffdf5;color:#1a2e47;font:600 16px system-ui">Topplers needs JavaScript to show its tower and demo. / Topplers richiede JavaScript per mostrare la torre e la demo.</p></noscript>
+<div class="intro" id="intro" aria-hidden="true"><div class="intro-t"><span>T</span><span>O</span><span>P</span><span>P</span><span>L</span><span>E</span><span>R</span><span>S</span></div></div>
 <a class="skip" href="#top" data-t="skip"></a>
 <canvas id="cielo" aria-hidden="true"></canvas>
 <div id="fx" aria-hidden="true"></div>
@@ -43,8 +45,7 @@
     <nav class="links" aria-label="Sections">
       <a href="#custom" data-t="nav_lab"></a>
       <a href="#worlds" data-t="nav_worlds"></a>
-      <a href="#rewards" data-t="nav_rewards"></a>
-      <a href="#goals" data-t="nav_goals"></a>
+      <a href="#kickstarter" data-ks data-t="nav_ks"></a>
       <a href="#team" data-t="nav_team"></a>
     </nav>
     <div class="tools">
@@ -74,7 +75,7 @@
         <p class="lead" data-t="hero_lead"></p>
         <div class="ctas">
           <a class="btn" href="#custom" data-t="cta_play"></a>
-          <a class="btn blue" id="ksbtn" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
+          <a class="btn blue" data-ks id="ksbtn" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
         </div>
         <div class="chips">
           <span class="chip" data-t="chip1"></span><span class="chip" data-t="chip2"></span><span class="chip" data-t="chip3"></span><span class="chip" data-t="chip4"></span>
@@ -285,27 +286,45 @@
     </div>
   </section>
 
-  <!-- ===== STATO ===== -->
-  <section id="status" data-world="ice" data-tp>
-    <div class="wrap">
-      <div class="sec-head"><h2 class="pl" data-t="status_h"></h2><p class="lede" data-t="status_p"></p></div>
-      <div class="status" id="statuslist"></div>
-    </div>
-  </section>
+    <div class="ribbon-box r2" data-ks aria-hidden="true"><div class="ribbon" data-dir="1"><div class="rb-track"></div></div></div>
 
-  <!-- ===== RICOMPENSE ===== -->
-  <section id="rewards" data-world="lava" data-tp>
+  <!-- ============================================================
+       SEZIONE KICKSTARTER: tutto il sostegno e' qui dentro.
+       Per toglierla a fine campagna: in data/config.js metti KICKSTARTER_ATTIVO: false
+       (la pagina la rimuove da sola, insieme ai tasti e ai link marcati data-ks),
+       oppure cancella questo blocco fino a "FINE SEZIONE KICKSTARTER" e gli elementi con data-ks.
+       ============================================================ -->
+  <section id="kickstarter" class="ks" data-ks data-world="lava" data-tp>
     <div class="wrap">
+      <div class="sec-head">
+        <span class="ks-badge" data-t="ks_badge"></span>
+        <h2 class="pl" data-t="ks_h"></h2>
+        <p class="lede" data-t="ks_p"></p>
+        <a class="btn blue" id="ksbtn3" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
+      </div>
+      <div class="countdown ks-cd" id="countdown" role="timer" aria-live="off">
+        <p class="cd-label" id="cdLabel"></p>
+        <div class="cd-row" id="cdRow">
+          <div class="cd"><b data-u="d">00</b><span data-t="cd_d"></span></div>
+          <div class="cd"><b data-u="h">00</b><span data-t="cd_h"></span></div>
+          <div class="cd"><b data-u="m">00</b><span data-t="cd_m"></span></div>
+          <div class="cd"><b data-u="s">00</b><span data-t="cd_s"></span></div>
+        </div>
+      </div>
+      <nav class="ks-tabs" id="ksTabs" aria-label="Kickstarter">
+        <a href="#rewards" data-t="ks_t2"></a><a href="#goals" data-t="ks_t3"></a><a href="#status" data-t="ks_t1"></a><a href="#roadmap" data-t="ks_t4"></a>
+      </nav>
+  <!-- ===== RICOMPENSE ===== -->
+  <div class="ks-block" id="rewards">
+    <div class="ks-in">
       <div class="sec-head"><h2 class="pl" data-t="rew_h"></h2><p class="lede" data-t="rew_p"></p></div>
       <div class="tiers" id="tiers"></div>
     </div>
-  </section>
-
-  <div class="ribbon-box r2" aria-hidden="true"><div class="ribbon" data-dir="1"><div class="rb-track"></div></div></div>
+  </div>
 
   <!-- ===== STRETCH GOAL ===== -->
-  <section id="goals" data-world="orbit" data-tp>
-    <div class="wrap">
+  <div class="ks-block" id="goals">
+    <div class="ks-in">
       <div class="sec-head"><h2 class="pl" data-t="goals_h"></h2><p class="lede" data-t="goals_p"></p></div>
       <div class="simcard" data-rv="pop">
         <div class="row"><label for="sim" data-t="sim_label"></label><output id="simout" for="sim"></output></div>
@@ -318,11 +337,19 @@
       </div>
       <p class="morewrap" data-t="more_goals"></p>
     </div>
-  </section>
+  </div>
+
+  <!-- ===== STATO ===== -->
+  <div class="ks-block" id="status">
+    <div class="ks-in">
+      <div class="sec-head"><h2 class="pl" data-t="status_h"></h2><p class="lede" data-t="status_p"></p></div>
+      <div class="status" id="statuslist"></div>
+    </div>
+  </div>
 
   <!-- ===== ROADMAP ===== -->
-  <section id="roadmap" data-world="orbit" data-tp>
-    <div class="wrap">
+  <div class="ks-block" id="roadmap">
+    <div class="ks-in">
       <div class="sec-head"><h2 class="pl" data-t="road_h"></h2></div>
       <div class="roadwrap">
         <svg class="roadline" id="roadline" viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true"><line x1="5" y1="0" x2="5" y2="100" /></svg>
@@ -330,7 +357,11 @@
         <ul class="road" id="road"></ul>
       </div>
     </div>
+  </div>
+
+    </div>
   </section>
+  <!-- ===== FINE SEZIONE KICKSTARTER ===== -->
 
   <!-- ===== TEAM ===== -->
   <section id="team" data-world="dawn" data-tp>
@@ -357,15 +388,6 @@
     <div class="wrap inner">
       <h2 class="pl" data-t="close_h"></h2>
       <p class="lede" data-t="close_p"></p>
-      <div class="countdown" id="countdown" role="timer" aria-live="off">
-        <p class="cd-label" id="cdLabel"></p>
-        <div class="cd-row" id="cdRow">
-          <div class="cd"><b data-u="d">00</b><span data-t="cd_d"></span></div>
-          <div class="cd"><b data-u="h">00</b><span data-t="cd_h"></span></div>
-          <div class="cd"><b data-u="m">00</b><span data-t="cd_m"></span></div>
-          <div class="cd"><b data-u="s">00</b><span data-t="cd_s"></span></div>
-        </div>
-      </div>
       <form class="news" id="news" novalidate>
         <label class="sr" for="email" data-t="news_label"></label>
         <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required data-t-ph="news_ph">
@@ -373,7 +395,7 @@
         <button class="btn" type="submit" data-t="news_btn"></button>
         <p class="news-msg" id="newsMsg" role="status" aria-live="polite"></p>
       </form>
-      <a class="btn blue" id="ksbtn2" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
+      <a class="btn blue" data-ks id="ksbtn2" href="#" target="_blank" rel="noopener" data-t="cta_ks"></a>
     </div>
     <div class="hills" aria-hidden="true"><svg viewBox="0 0 1200 90" preserveAspectRatio="none"><path d="M0 90V50C120 20 240 20 360 45S600 75 780 45 1080 15 1200 40V90Z" fill="#5fa83d"/><path d="M0 90V68C160 40 300 52 460 66S760 84 940 60 1120 44 1200 60V90Z" fill="#7cc456"/></svg></div>
   </section>
@@ -387,6 +409,7 @@
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/matter.min.js"></script>
 <script src="data/config.js"></script>
+<script src="js/ks-flag.js"></script>
 <script src="data/testi.js"></script>
 <script src="js/util.js"></script>
 <script src="js/i18n.js"></script>
@@ -402,6 +425,7 @@
 <script src="js/countdown.js"></script>
 <script src="js/form.js"></script>
 <script src="js/scroll.js"></script>
+<script src="js/fluido.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

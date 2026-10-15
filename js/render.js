@@ -8,7 +8,7 @@
   /* ---- tasti Kickstarter: spenti finche' il link e' vuoto ---- */
   function setKS() {
     var url = (window.CONFIG || {}).KICKSTARTER_URL;
-    ["ksbtn", "ksbtn2"].forEach(function (id) {
+    ["ksbtn", "ksbtn2", "ksbtn3"].forEach(function (id) {
       var b = $(id); if (!b) return;
       if (url) { b.href = url; b.classList.remove("flat"); b.innerHTML = t("cta_ks"); b.removeAttribute("aria-disabled"); b.removeAttribute("tabindex"); }
       else { b.removeAttribute("href"); b.classList.add("flat"); b.innerHTML = t("cta_ks_soon"); b.setAttribute("aria-disabled", "true"); b.setAttribute("tabindex", "-1"); }
@@ -56,6 +56,7 @@
 
   /* ---- stato dei lavori ---- */
   function renderStatus() {
+    if (!$("statuslist")) return;
     var rows = [["s1", 3], ["s2", 3], ["s3", 2], ["s4", 2], ["s5", 2], ["s6", 1], ["s7", 2], ["s8", 1], ["s9", 1], ["s10", 2], ["s11", 2], ["s12", 2]];
     $("statuslist").innerHTML = rows.map(function (r) {
       var lv = r[1] === 1 ? "lv1" : r[1] === 2 ? "lv2" : "lv3", m = "";
@@ -66,6 +67,7 @@
 
   /* ---- ricompense ---- */
   function renderTiers() {
+    if (!$("tiers")) return;
     function li(p, n) { var s = ""; for (var i = 1; i <= n; i++) s += "<li>" + t(p + "_" + i) + "</li>"; return s; }
     function price(v) { return '<span class="pl price" data-count="' + v + '">' + T.money(v) + "</span>"; }
     $("tiers").innerHTML =
@@ -80,6 +82,7 @@
   var GOALS = [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000];
   var GCOL = ["#45C940", "#1CB8ED", "#AB4AE8", "#FF8C17", "#2969F5", "#F5384A", "#FFC71A", "#8A5AD8"];
   function drawGoalsFrame() {
+    if (!$("glist")) return;
     $("glist").innerHTML = GOALS.map(function (g, i) {
       return '<div class="g" data-i="' + i + '"><span class="amt">' + T.money(g) + '</span><span class="tx"><b>' + t("g" + i + "_t") + "</b><small>" + t("g" + i + "_d") + '</small></span><span class="st2"></span></div>';
     }).join("");
@@ -87,6 +90,7 @@
     updateGoals(false);
   }
   function updateGoals(animate) {
+    if (!$("sim")) return;
     var v = +$("sim").value;
     $("simout").textContent = T.money(v);
     GOALS.forEach(function (g, i) {
@@ -108,11 +112,12 @@
 
   /* ---- roadmap ---- */
   function renderRoad() {
+    if (!$("road")) return;
     $("road").innerHTML = [1, 2, 3, 4, 5].map(function (i) { return '<li data-rv="left"><b>' + t("r" + i + "_d") + "</b><span>" + t("r" + i + "_t") + "</span></li>"; }).join("");
   }
 
   T.onLang(function () {
     setKS(); renderPU(); renderTarghe(); renderFreePhone(); renderMiles(); renderStatus(); renderTiers(); drawGoalsFrame(); renderRoad();
   });
-  $("sim").addEventListener("input", function () { updateGoals(true); });
+  if ($("sim")) $("sim").addEventListener("input", function () { updateGoals(true); });
 })(window.Topplers);
