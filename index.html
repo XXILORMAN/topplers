@@ -15,11 +15,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap">
-<link rel="stylesheet" href="css/base.css?v=20261015b">
-<link rel="stylesheet" href="css/componenti.css?v=20261015b">
-<link rel="stylesheet" href="css/sezioni.css?v=20261015b">
-<link rel="stylesheet" href="css/fluido.css?v=20261015b">
-<link rel="stylesheet" href="css/vetrine.css?v=20261015b">
+<link rel="stylesheet" href="css/base.css?v=20261015c">
+<link rel="stylesheet" href="css/componenti.css?v=20261015c">
+<link rel="stylesheet" href="css/sezioni.css?v=20261015c">
+<link rel="stylesheet" href="css/fluido.css?v=20261015c">
+<link rel="stylesheet" href="css/vetrine.css?v=20261015c">
+<link rel="stylesheet" href="css/ks.css?v=20261015c">
 <script>document.documentElement.className = "js";</script>
 </head>
 <body>
@@ -325,7 +326,11 @@
   <div class="ks-block" id="rewards">
     <div class="ks-in">
       <div class="sec-head"><h2 class="pl" data-t="rew_h"></h2><p class="lede" data-t="rew_p"></p></div>
-      <div class="tiers" id="tiers"></div>
+      <div class="piani" id="tiers">
+        <div class="pi-torre"><div class="pi-floors" id="piFloors" role="group" data-t-aria="rew_h"></div><div class="pi-base" aria-hidden="true"></div></div>
+        <div class="pi-cards" id="piCards" aria-live="polite"></div>
+      </div>
+      <p class="ks-hint" data-t="rew_tap"></p>
     </div>
   </div>
 
@@ -338,9 +343,10 @@
         <input type="range" id="sim" min="1500" max="7000" step="50" value="3200">
         <small data-t="sim_note"></small>
       </div>
-      <div class="goals">
-        <div class="tower" id="tower" aria-hidden="true"></div>
-        <div class="glist" id="glist"></div>
+      <div class="sentiero" id="glist">
+        <div class="se-path" id="sePath"><div class="se-rail" aria-hidden="true"></div><div class="se-fill" id="seFill" aria-hidden="true"></div></div>
+        <div class="se-card" id="seCard" aria-live="polite"></div>
+        <p class="ks-hint" data-t="gb_tap"></p>
       </div>
       <p class="morewrap" data-t="more_goals"></p>
     </div>
@@ -415,25 +421,25 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/matter.min.js"></script>
-<script src="data/config.js?v=20261015b"></script>
-<script src="js/ks-flag.js?v=20261015b"></script>
-<script src="data/testi.js?v=20261015b"></script>
-<script src="js/util.js?v=20261015b"></script>
+<script src="data/config.js?v=20261015c"></script>
+<script src="js/ks-flag.js?v=20261015c"></script>
+<script src="data/testi.js?v=20261015c"></script>
+<script src="js/util.js?v=20261015c"></script>
 <script src="js/i18n.js"></script>
-<script src="js/impila.js?v=20261015b"></script>
-<script src="js/render.js?v=20261015b"></script>
-<script src="js/cielo.js?v=20261015b"></script>
-<script src="js/torre.js?v=20261015b"></script>
-<script src="js/pezzi.js?v=20261015b"></script>
-<script src="js/lab.js?v=20261015b"></script>
-<script src="js/mondi.js?v=20261015b"></script>
-<script src="js/effetti.js?v=20261015b"></script>
-<script src="js/libera.js?v=20261015b"></script>
-<script src="js/countdown.js?v=20261015b"></script>
-<script src="js/form.js?v=20261015b"></script>
-<script src="js/scroll.js?v=20261015b"></script>
-<script src="js/vetrine.js?v=20261015b"></script>
-<script src="js/fluido.js?v=20261015b"></script>
-<script src="js/main.js?v=20261015b"></script>
+<script src="js/impila.js?v=20261015c"></script>
+<script src="js/render.js?v=20261015c"></script>
+<script src="js/cielo.js?v=20261015c"></script>
+<script src="js/torre.js?v=20261015c"></script>
+<script src="js/pezzi.js?v=20261015c"></script>
+<script src="js/lab.js?v=20261015c"></script>
+<script src="js/mondi.js?v=20261015c"></script>
+<script src="js/effetti.js?v=20261015c"></script>
+<script src="js/libera.js?v=20261015c"></script>
+<script src="js/countdown.js?v=20261015c"></script>
+<script src="js/form.js?v=20261015c"></script>
+<script src="js/scroll.js?v=20261015c"></script>
+<script src="js/vetrine.js?v=20261015c"></script>
+<script src="js/fluido.js?v=20261015c"></script>
+<script src="js/main.js?v=20261015c"></script>
 </body>
 </html>
