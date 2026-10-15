@@ -5,6 +5,22 @@
 
   function targa(file, testo) { return '<div class="targa"><img src="assets/targhe/' + file + '.webp" width="520" height="232" alt="" loading="lazy"><span>' + testo + "</span></div>"; }
 
+  /* icone e sprite della sezione Kickstarter */
+  var PF = { geco: [10, 160, 160], micio: [12, 165, 160], draghetto: [8, 180, 180], kicky: [3, 200, 200] };
+  function petSpan(id, cls, size) {
+    var f = PF[id];
+    return '<span class="pf ' + (cls || "") + '" style="background-image:url(assets/pet/' + id + ".webp);--n:" + f[0] + ";--n1:" + (f[0] - 1) + ";--r:" + (f[1] / f[2]).toFixed(3) + (size ? ";--s:" + size + "px" : "") + '"></span>';
+  }
+  function ico(src, cls) {
+    if (src.indexOf("pet:") === 0) return petSpan(src.slice(4), "gi");
+    return '<img class="' + (cls || "gi") + '" src="' + src + '" alt="" width="40" height="40" loading="lazy">'; }
+  var P = function (skin, k) { return "assets/pezzi/" + skin + "_" + k + ".webp"; };
+  var ICO = "assets/icone/", PET = "assets/pet/", BAS = "assets/basamenti/";
+  var SVG_NOTA = ICO + "nota.svg", SVG_GLOBO = ICO + "globo.svg", SVG_INGR = ICO + "ingranaggio.svg", SVG_LUCC = ICO + "lucchetto.svg", SVG_BAND = ICO + "bandiera.svg", SVG_LENTE = ICO + "lente.svg";
+  function scene(ac, ac2, sprites) {
+    return '<div class="scene" style="--ac:' + ac + ";--ac2:" + ac2 + '" aria-hidden="true">' + sprites.map(function (s, i) { return s.indexOf("pet:") === 0 ? petSpan(s.slice(4), "sp sp" + (i + 1), 84) : '<img class="sp sp' + (i + 1) + '" src="' + s + '" alt="" loading="lazy">'; }).join("") + "</div>";
+  }
+
   /* ---- tasti Kickstarter: spenti finche' il link e' vuoto ---- */
   function setKS() {
     var url = (window.CONFIG || {}).KICKSTARTER_URL;
@@ -55,13 +71,14 @@
   }
 
   /* ---- stato dei lavori ---- */
+  var SICO = { s1: SVG_INGR, s2: ICO + "mondo_volcano_aperto.svg", s3: ICO + "mondo_hills_aperto.svg", s4: ICO + "stella.svg", s5: ICO + "oblo_libera.svg", s6: SVG_BAND, s7: P("frutta", "O"), s8: P("cristallo", "O"), s9: "pet:micio", s10: SVG_NOTA, s11: SVG_GLOBO, s12: ICO + "moneta.svg" };
   function renderStatus() {
     if (!$("statuslist")) return;
     var rows = [["s1", 3], ["s2", 3], ["s3", 2], ["s4", 2], ["s5", 2], ["s6", 1], ["s7", 2], ["s8", 1], ["s9", 1], ["s10", 2], ["s11", 2], ["s12", 2]];
     $("statuslist").innerHTML = rows.map(function (r) {
       var lv = r[1] === 1 ? "lv1" : r[1] === 2 ? "lv2" : "lv3", m = "";
       for (var i = 1; i <= 4; i++) m += "<i" + (i <= r[1] ? ' class="on"' : "") + "></i>";
-      return '<div class="st" data-rv="up"><div class="top"><b>' + t(r[0] + "_t") + '</b><span class="lv">' + t(lv) + '</span></div><div class="meter" aria-hidden="true">' + m + "</div><p>" + t(r[0] + "_d") + "</p></div>";
+      return '<div class="st" data-rv="up"><div class="top"><b>' + ico(SICO[r[0]]) + t(r[0] + "_t") + '</b><span class="lv">' + t(lv) + '</span></div><div class="meter" aria-hidden="true">' + m + "</div><p>" + t(r[0] + "_d") + "</p></div>";
     }).join("");
   }
 
@@ -71,20 +88,21 @@
     function li(p, n) { var s = ""; for (var i = 1; i <= n; i++) s += "<li>" + t(p + "_" + i) + "</li>"; return s; }
     function price(v) { return '<span class="pl price" data-count="' + v + '">' + T.money(v) + "</span>"; }
     $("tiers").innerHTML =
-      '<article class="tier" data-rv="pop">' + price(10) + targa("apprendista_sostenitore", t("t1_n")) + "<ul>" + li("t1", 4) + "</ul></article>" +
-      '<article class="tier" data-rv="pop">' + price(25) + targa("costruttore_sostenitore", t("t2_n")) + "<ul>" + li("t2", 3) + "</ul></article>" +
-      '<article class="tier" data-rv="pop">' + price(50) + targa("ingegnere_sostenitore", t("t3_n")) + "<ul>" + li("t3", 5) + "</ul></article>" +
-      '<article class="tier top" data-rv="pop">' + price(100) + targa("maestro_delle_torri", t("t4_n")) + "<ul>" + li("t4", 7) + "</ul></article>" +
-      '<article class="tier top wide" data-rv="pop"><div>' + price(250) + "</div><div>" + targa("arcangelo_dell_architettura", t("t5_n")) + "</div><div><ul>" + li("t5", 2) + "</ul></div></article>";
+      '<article class="tier" data-rv="pop">' + scene("#d98b4a", "#f4c28c", [P("lego", "T"), ICO + "moneta.svg"]) + price(10) + targa("apprendista_sostenitore", t("t1_n")) + "<ul>" + li("t1", 4) + "</ul></article>" +
+      '<article class="tier" data-rv="pop">' + scene("#8fa6bf", "#dbe6f2", [P("metallo", "L"), P("cristallo", "O"), ICO + "moneta.svg"]) + price(25) + targa("costruttore_sostenitore", t("t2_n")) + "<ul>" + li("t2", 3) + "</ul></article>" +
+      '<article class="tier" data-rv="pop">' + scene("#f2b51c", "#ffe9a0", [P("steampunk", "S"), "pet:geco", ICO + "stella.svg"]) + price(50) + targa("ingegnere_sostenitore", t("t3_n")) + "<ul>" + li("t3", 5) + "</ul></article>" +
+      '<article class="tier top" data-rv="pop">' + scene("#2f7be0", "#a9d0ff", [P("oro", "J"), "pet:micio", ICO + "stella.svg"]) + price(100) + targa("maestro_delle_torri", t("t4_n")) + "<ul>" + li("t4", 7) + "</ul></article>" +
+      '<article class="tier top wide" data-rv="pop">' + scene("#8a5ad8", "#e2d0ff", [P("paradiso", "T"), "pet:kicky", "pet:draghetto", ICO + "stella.svg"]) + '<div>' + price(250) + "</div><div>" + targa("arcangelo_dell_architettura", t("t5_n")) + "</div><div><ul>" + li("t5", 2) + "</ul></div></article>";
   }
 
   /* ---- stretch goal ---- */
+  var GICO = [ICO + "moneta.svg", ICO + "mondo_planet_chiuso.svg", SVG_INGR, ICO + "stella.svg", ICO + "oblo_libera.svg", "pet:geco", SVG_NOTA, SVG_LUCC];
   var GOALS = [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000];
   var GCOL = ["#45C940", "#1CB8ED", "#AB4AE8", "#FF8C17", "#2969F5", "#F5384A", "#FFC71A", "#8A5AD8"];
   function drawGoalsFrame() {
     if (!$("glist")) return;
     $("glist").innerHTML = GOALS.map(function (g, i) {
-      return '<div class="g" data-i="' + i + '"><span class="amt">' + T.money(g) + '</span><span class="tx"><b>' + t("g" + i + "_t") + "</b><small>" + t("g" + i + "_d") + '</small></span><span class="st2"></span></div>';
+      return '<div class="g" data-i="' + i + '"><span class="amt">' + T.money(g) + '</span><span class="tx"><b>' + ico(GICO[i]) + t("g" + i + "_t") + "</b><small>" + t("g" + i + "_d") + '</small></span><span class="st2"></span></div>';
     }).join("");
     $("tower").innerHTML = '<div class="base"></div>' + GOALS.map(function (g, i) { return '<div class="blk" data-i="' + i + '"></div>'; }).join("");
     updateGoals(false);
@@ -111,9 +129,10 @@
   T.updateGoals = updateGoals;
 
   /* ---- roadmap ---- */
+  var RICO = [SVG_BAND, ICO + "moneta.svg", SVG_LENTE, P("lego", "T"), ICO + "stella.svg"];
   function renderRoad() {
     if (!$("road")) return;
-    $("road").innerHTML = [1, 2, 3, 4, 5].map(function (i) { return '<li data-rv="left"><b>' + t("r" + i + "_d") + "</b><span>" + t("r" + i + "_t") + "</span></li>"; }).join("");
+    $("road").innerHTML = [1, 2, 3, 4, 5].map(function (i) { return '<li data-rv="left">' + ico(RICO[i - 1], "gi ri") + "<b>" + t("r" + i + "_d") + "</b><span>" + t("r" + i + "_t") + "</span></li>"; }).join("");
   }
 
   T.onLang(function () {
