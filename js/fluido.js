@@ -31,4 +31,12 @@
     }, { rootMargin: "-35% 0px -55% 0px" });
     links.forEach(function (a) { var b = document.querySelector(a.getAttribute("href")); if (b) io.observe(b); });
   }
+
+  /* decorazioni della sezione Kickstarter: salgono a velocita' diverse mentre si scorre (variabile CSS, cosi' non litiga con l'ondeggio) */
+  window.addEventListener("load", function () {
+    if (!(window.gsap && window.ScrollTrigger) || (window.Topplers && window.Topplers.reduce) || !document.querySelector(".ks-deco")) return;
+    document.querySelectorAll(".ks-deco .kd").forEach(function (el, i) {
+      gsap.fromTo(el, { "--py": "0px" }, { "--py": (i % 2 ? -1 : 1) * (90 + i * 24) + "px", ease: "none", scrollTrigger: { trigger: ".ks", start: "top bottom", end: "bottom top", scrub: .8 } });
+    });
+  });
 })();

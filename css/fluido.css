@@ -26,3 +26,79 @@ body.nav-hidden .ks-tabs { top: 12px; }
 .ks-block + .ks-block { border-top: 2px dashed rgba(26, 46, 71, .18); }
 .ks-block .sec-head { margin-bottom: 32px; }
 @media (max-width: 700px) { .ks-tabs { top: 58px; width: auto; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .ks-tabs a { white-space: nowrap; padding: 8px 12px; } }
+
+/* ===== Kickstarter: carte con immagini e movimento ===== */
+.ks { overflow: clip; }
+.ks-block { scroll-margin-top: 150px; }
+.ks-deco { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.ks > .wrap { position: relative; z-index: 1; }
+.kd { translate: 0 var(--py, 0px); position: absolute; width: 76px; height: auto; opacity: .9; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .18)); animation: bob 5s ease-in-out infinite; }
+.kd.d1 { left: 3%; top: 9%; rotate: -14deg; } .kd.d2 { right: 4%; top: 17%; width: 92px; rotate: 18deg; animation-delay: -1.2s; }
+.kd.d3 { left: 7%; top: 31%; width: 44px; animation-delay: -2s; } .kd.d4 { right: 6%; top: 40%; rotate: -10deg; animation-delay: -.6s; }
+.kd.d5 { left: 4%; top: 53%; width: 50px; animation-delay: -3s; } .kd.d6 { right: 3%; top: 63%; width: 84px; rotate: 24deg; animation-delay: -2.4s; }
+.kd.d7 { left: 6%; top: 74%; width: 40px; animation-delay: -1.7s; } .kd.d8 { right: 5%; top: 86%; width: 80px; rotate: -20deg; animation-delay: -.3s; }
+@keyframes bob { 50% { transform: translateY(-16px) rotate(4deg); } }
+@media (max-width: 1100px) { .ks-deco { display: none; } }
+
+.gi { width: 26px; height: 26px; object-fit: contain; vertical-align: -6px; margin-right: 8px; flex: none; filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .25)); transition: transform .35s cubic-bezier(.3, 1.8, .5, 1); }
+
+/* ricompense */
+.tier { padding: 0 0 26px; gap: 14px; transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), box-shadow .35s; border-color: color-mix(in srgb, var(--ac, #cfe2ef) 55%, #fff); }
+.tier > :not(.scene) { margin-inline: 24px; }
+.tier:hover { transform: translateY(-8px) rotate(-.6deg); box-shadow: 0 14px 0 rgba(26, 46, 71, .14); }
+.tier.wide > .scene { flex: 0 0 100%; margin: 0; }
+.tier.wide { padding-bottom: 28px; }
+.scene { position: relative; height: 132px; margin: 0 0 4px; background: linear-gradient(135deg, var(--ac), var(--ac2)); overflow: hidden; display: flex; align-items: flex-end; justify-content: center; gap: 4px; padding-bottom: 10px; }
+.scene::before { content: ""; position: absolute; inset: auto -10% -22px -10%; height: 46px; background: rgba(255, 255, 255, .28); border-radius: 50% 50% 0 0; }
+.scene::after { content: ""; position: absolute; left: 14px; top: 12px; width: 70px; height: 10px; border-radius: 6px; background: rgba(255, 255, 255, .55); }
+.sp { position: relative; z-index: 1; max-height: 92px; width: auto; max-width: 40%; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .22)); animation: bob 4.2s ease-in-out infinite; transition: transform .4s cubic-bezier(.3, 1.8, .5, 1); }
+.sp2 { animation-delay: -1.4s; max-height: 108px; } .sp3 { animation-delay: -2.6s; max-height: 80px; } .sp4 { animation-delay: -.8s; max-height: 70px; } .sp5 { animation-delay: -2s; max-height: 56px; }
+.tier:hover .sp { transform: scale(1.12) rotate(-4deg); }
+.tier .price { margin-top: 6px; }
+.tier .targa { margin-inline: 24px; }
+
+/* stretch goal */
+.simcard { background: linear-gradient(135deg, #22385e, #2f4f86); position: relative; overflow: hidden; }
+.simcard::after { content: ""; position: absolute; right: -30px; bottom: -34px; width: 150px; height: 150px; background: url(../assets/pezzi/oro_O.webp) center/contain no-repeat; opacity: .22; rotate: 14deg; }
+.g { transition: transform .3s cubic-bezier(.3, 1.6, .5, 1), background .3s, border-color .3s; }
+.g:hover { transform: translateX(6px); }
+.g.on .gi { transform: scale(1.25) rotate(-8deg); }
+.g:not(.on) .gi { filter: grayscale(.9) opacity(.6); }
+
+/* stato dei lavori: carte chiare con icona e barre che si riempiono */
+.st { background: linear-gradient(180deg, #fffdf5, #f6e9c6); color: var(--ink); box-shadow: 0 5px 0 rgba(26, 46, 71, .16); border: 2px solid #fff; position: relative; overflow: hidden; transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.st::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--green); }
+.st:has(.lv2)::before { background: var(--gold); } .st:has(.lv1)::before { background: var(--blue-hi); }
+.st:hover { transform: translateY(-4px); }
+.st b { color: var(--ink); display: flex; align-items: center; } .st .gi { width: 34px; height: 34px; margin-right: 10px; }
+.st:hover .gi { transform: scale(1.2) rotate(-8deg); }
+.st p { color: var(--ink2); } .st .lv { color: #7a4e00; background: #ffe9a0; padding: 3px 10px; border-radius: 999px; }
+.meter i { background: rgba(26, 46, 71, .14); height: 11px; }
+.meter i.on { background: linear-gradient(var(--green-hi), var(--green)); box-shadow: inset 0 -2px 0 var(--green-lo); }
+
+/* roadmap */
+.road li { grid-template-columns: 52px 96px 1fr; align-items: center; background: linear-gradient(180deg, #fffdf5, #f6e9c6); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.road li:hover { transform: translateX(8px); }
+.road .ri { width: 44px; height: 44px; margin: 0; }
+.road li.on .ri { animation: bob 2.6s ease-in-out infinite; }
+@media (max-width: 700px) { .road li { grid-template-columns: 44px 1fr; } .road li b, .road li span { grid-column: 2; } .road .ri { grid-row: 1 / span 2; width: 38px; height: 38px; } }
+
+/* team: avatar vivi */
+.who { transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); } .who:hover { transform: translateX(6px); }
+.who .av { animation: bob 4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .kd, .sp, .who .av, .road li.on .ri { animation: none; } }
+
+/* pet: un fotogramma alla volta dal foglio */
+.pf { --s: 30px; display: inline-block; width: calc(var(--s) * var(--r)); height: var(--s); background-position: 0 0; background-size: calc(var(--n) * 100%) 100%; background-repeat: no-repeat; animation: pf calc(var(--n) * .09s) steps(var(--n1)) infinite; flex: none; image-rendering: auto; }
+@keyframes pf { to { background-position: 100% 0; } }
+.pf.gi { --s: 30px; margin-right: 8px; vertical-align: -8px; } .st .pf.gi { --s: 36px; }
+.scene .pf.sp { --s: 84px; }
+@media (prefers-reduced-motion: reduce) { .pf { animation: none; } }
+
+/* team */
+.team > .card { overflow: hidden; }
+.team > .card::after { content: ""; position: absolute; right: -14px; bottom: -10px; width: 120px; height: 82px; background: url(../assets/pezzi/lego_L.webp) center/contain no-repeat; opacity: .22; rotate: -12deg; }
+.risk { position: relative; padding-right: 86px; }
+.risk::after { content: ""; position: absolute; right: 18px; top: 18px; width: 52px; height: 52px; background: url(../assets/icone/cuore.svg) center/contain no-repeat; animation: beat 1.4s ease-in-out infinite; }
+@keyframes beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.18); } 28% { transform: scale(1); } 42% { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { .risk::after { animation: none; } }
