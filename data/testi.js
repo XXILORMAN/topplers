@@ -331,3 +331,14 @@ window.TESTI = {
   };
   Object.keys(N).forEach(function (l) { Object.assign(window.TESTI[l], N[l]); });
 })();
+
+/* ---------- carosello dei titoli e anello dello stato ---------- */
+(function () {
+  var N = {
+    en: { car_prev: `Previous title`, car_next: `Next title`, tt_tag_w: `World`, tt_tag_b: `Backer`,
+      st_ring: `average progress`, st_tap: `Tap an item`, st_tap_d: `Its details show up here, one at a time.` },
+    it: { car_prev: `Titolo precedente`, car_next: `Titolo successivo`, tt_tag_w: `Mondo`, tt_tag_b: `Sostenitore`,
+      st_ring: `avanzamento medio`, st_tap: `Tocca una voce`, st_tap_d: `I dettagli compaiono qui, una alla volta.` }
+  };
+  Object.keys(N).forEach(function (l) { Object.assign(window.TESTI[l], N[l]); });
+})();

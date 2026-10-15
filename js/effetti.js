@@ -81,7 +81,7 @@
 
   /* ---------- 4. inclinazione con la velocita' ---------- */
   function skew() {
-    var sel = ".why .card, .tiers .tier, .status .st, .lab, .altimetro, .risk, .who, .simcard, .road li, .titles";
+    var sel = ".why .card, .tiers .tier, .lab, .altimetro, .risk, .who, .simcard, .road li";
     var set = gsap.quickSetter(sel, "skewY", "deg"), proxy = { s: 0 }, clamp = gsap.utils.clamp(-4, 4);
     ScrollTrigger.create({ onUpdate: function (self) {
       var v = clamp(self.getVelocity() / -450);
