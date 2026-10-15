@@ -119,8 +119,33 @@
 }
 
 /* ---------- costruzione libera ---------- */
-.free { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 36px; align-items: center; }
-.free-text { display: grid; gap: 18px; justify-items: start; min-width: 0; }
+/* testo e altimetro a sinistra, la torre che sale a destra; su telefono la torre sta fra il testo e l'altimetro */
+.free { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "testo torre" "alt torre"; gap: 22px 36px; align-items: start; }
+.free-text { grid-area: testo; display: grid; gap: 18px; justify-items: start; min-width: 0; }
+.free .altimetro { grid-area: alt; }
+.alt-go { justify-self: start; margin-top: 4px; }
+.sali { grid-area: torre; position: relative; align-self: stretch; min-height: 480px; border-radius: 26px; overflow: hidden; border: 3px solid var(--ink); touch-action: none; cursor: ns-resize; user-select: none; isolation: isolate; box-shadow: 0 8px 0 rgba(26, 46, 71, .22); --c: 20px; }
+.sali-aria { position: absolute; inset: 0; z-index: -1; background: linear-gradient(#5aa6f5, #bde7fb); transition: background .8s; }
+.sali-mondo { position: absolute; left: 0; right: 0; bottom: 0; height: calc(40px + var(--c) * 72); transition: transform .35s ease-out; will-change: transform; }
+.sali-prato { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: linear-gradient(#7cc456 0 30%, #5fa83d 30%); border-top: 3px solid #3f7f2c; }
+.sali-righello span { position: absolute; left: 10px; translate: 0 50%; font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, .9); text-shadow: 0 1px 0 rgba(0, 0, 0, .35); }
+.sali-righello span::after { content: ""; position: absolute; left: 32px; top: 50%; width: 10px; height: 2px; background: rgba(255, 255, 255, .6); }
+.sali-bandiera { position: absolute; left: 52px; right: 0; border-top: 3px dashed rgba(255, 255, 255, .5); transition: border-color .3s; }
+.sali-bandiera b { position: absolute; right: 10px; bottom: 4px; font-family: var(--f-display); font-weight: 400; font-size: 15px; color: #fff; background: rgba(26, 46, 71, .55); padding: 2px 10px; border-radius: 99px; transition: background .3s, color .3s, transform .4s cubic-bezier(.3, 1.6, .5, 1); }
+.sali-bandiera.on { border-top-color: var(--gold); }
+.sali-bandiera.on b { background: var(--gold); color: #3a2a00; transform: scale(1.08); }
+.sali-torre { position: absolute; bottom: 40px; left: calc(50% - var(--c) * 3); width: calc(var(--c) * 4); height: calc(var(--c) * 70); }
+.sali-torre .tp { transition: opacity .2s; }
+.sali-torre .tp.spento { opacity: 0; }
+.sali-sagoma { position: absolute; bottom: 40px; z-index: 0; }
+.sali-sagoma svg { display: block; width: 100%; height: 100%; fill: rgba(255, 255, 255, .26); }
+.sali-sagoma .buco { fill: rgba(26, 46, 71, .12); }
+.sali-sagoma small { position: absolute; left: 50%; bottom: calc(100% + 6px); translate: -50% 0; white-space: nowrap; font-size: 12px; font-weight: 600; color: #fff; background: rgba(26, 46, 71, .55); padding: 2px 9px; border-radius: 99px; }
+.sali-hud { position: absolute; z-index: 3; left: 60px; top: 12px; background: rgba(255, 253, 245, .95); border-radius: 14px; padding: 6px 14px 8px; box-shadow: 0 4px 0 rgba(0, 0, 0, .18); font-size: 12px; font-weight: 600; color: var(--ink2); pointer-events: none; }
+.sali-hud b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 30px; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.sali-toast { position: absolute; z-index: 4; left: 50%; bottom: 54px; translate: -50% 0; max-width: calc(100% - 28px); background: var(--gold); color: #3a2a00; font-family: var(--f-display); font-size: 17px; padding: 7px 16px; border-radius: 99px; box-shadow: 0 5px 0 var(--gold-ln); text-align: center; opacity: 0; transform: translateY(16px) scale(.85); transition: opacity .3s, transform .4s cubic-bezier(.3, 1.6, .5, 1); pointer-events: none; }
+.sali-toast.on { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .sali-mondo, .sali-aria, .sali-toast { transition: none; } }
 .altimetro { width: 100%; background: var(--night); color: #fff; border-radius: 24px; padding: 20px 22px 22px; display: grid; gap: 8px; box-shadow: 0 8px 0 #142544; }
 .alt-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-weight: 600; color: #c9d8f2; }
 .alt-top output { font-family: var(--f-display); font-size: 48px; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
@@ -142,7 +167,6 @@
 .miles li.on { opacity: 1; background: rgba(255, 204, 61, .16); }
 .miles li.on::before { background: var(--gold); border-color: var(--gold-ln); }
 .miles li.on::after { transform: rotate(45deg) scale(1); border-color: #5b3a00; }
-.free-phone .phone { width: min(250px, 100%); margin-inline: auto; rotate: -3deg; }
 
 /* ---------- stato dei lavori ---------- */
 .status { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 22px; }
@@ -225,7 +249,9 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
   .hero-grid { grid-template-columns: 1fr; }
   .hero-art { min-height: 420px; }
   .hero .orb { width: 96px; height: 96px; }
-  .why, .status, .tiers, .free, .lab { grid-template-columns: minmax(0, 1fr); }
+  .why, .status, .tiers, .lab { grid-template-columns: minmax(0, 1fr); }
+  .free { grid-template-columns: minmax(0, 1fr); grid-template-areas: "testo" "torre" "alt"; }
+  .sali { height: clamp(420px, 70vh, 520px); }
   .tier.wide { grid-column: auto; }
   .pus { grid-template-columns: repeat(2, 1fr); }
   .team { grid-template-columns: 1fr; }
@@ -250,7 +276,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
 @media (max-width: 520px) {
   .altimetro { padding: 16px 16px 18px; }
   .alt-top output { font-size: 40px; }
-  .free-phone .phone { width: min(210px, 70%); }
+  .sali { height: 440px; border-radius: 22px; }
+  .sali-sagoma.pisa { display: none; }
 }
 
 /* ---------- mondi: scorrimento laterale ---------- */

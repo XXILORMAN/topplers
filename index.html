@@ -15,12 +15,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap">
-<link rel="stylesheet" href="css/base.css?v=20261015c">
-<link rel="stylesheet" href="css/componenti.css?v=20261015c">
-<link rel="stylesheet" href="css/sezioni.css?v=20261015c">
-<link rel="stylesheet" href="css/fluido.css?v=20261015c">
-<link rel="stylesheet" href="css/vetrine.css?v=20261015c">
-<link rel="stylesheet" href="css/ks.css?v=20261015c">
+<link rel="stylesheet" href="css/base.css?v=20261015d">
+<link rel="stylesheet" href="css/componenti.css?v=20261015d">
+<link rel="stylesheet" href="css/sezioni.css?v=20261015d">
+<link rel="stylesheet" href="css/fluido.css?v=20261015d">
+<link rel="stylesheet" href="css/vetrine.css?v=20261015d">
+<link rel="stylesheet" href="css/ks.css?v=20261015d">
 <script>document.documentElement.className = "js";</script>
 </head>
 <body>
@@ -283,14 +283,26 @@
       <div class="free-text">
         <h2 class="pl" data-t="free_h"></h2>
         <p class="lede" data-t="free_p"></p>
-        <div class="altimetro" id="alt" data-rv="pop">
-          <div class="alt-top"><span data-t="fb_rec"></span><output id="altOut" for="altRange"><b>0</b> m</output></div>
-          <input type="range" id="altRange" min="0" max="65" step="1" value="0" data-t-aria="fb_drag">
-          <p class="alt-note" data-t="fb_drag"></p>
-          <ul class="miles" id="miles"></ul>
+      </div>
+      <div class="sali" id="sali" role="img" data-t-aria="fb_view">
+        <div class="sali-aria" id="saliAria" aria-hidden="true"></div>
+        <div class="sali-hud" aria-hidden="true"><span data-t="fb_h"></span><b id="saliH">0 m</b></div>
+        <div class="sali-toast" id="saliToast" aria-live="polite"></div>
+        <div class="sali-mondo" id="saliMondo" aria-hidden="true">
+          <div class="sali-righello" id="saliRighello"></div>
+          <div id="saliBandiere"></div>
+          <div id="saliSagome"></div>
+          <div class="sali-torre" id="saliTorre"></div>
+          <div class="sali-prato"></div>
         </div>
       </div>
-      <div class="free-phone" id="freePhone"></div>
+      <div class="altimetro" id="alt" data-rv="pop">
+        <div class="alt-top"><label for="altRange" data-t="fb_rec"></label><output id="altOut" for="altRange"><b>0</b> m</output></div>
+        <input type="range" id="altRange" min="0" max="65" step="1" value="0">
+        <p class="alt-note" data-t="fb_drag2"></p>
+        <button class="btn alt-go" type="button" id="altGo" data-t="fb_go"></button>
+        <ul class="miles" id="miles"></ul>
+      </div>
     </div>
   </section>
 
@@ -421,25 +433,25 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/matter.min.js"></script>
-<script src="data/config.js?v=20261015c"></script>
-<script src="js/ks-flag.js?v=20261015c"></script>
-<script src="data/testi.js?v=20261015c"></script>
-<script src="js/util.js?v=20261015c"></script>
+<script src="data/config.js?v=20261015d"></script>
+<script src="js/ks-flag.js?v=20261015d"></script>
+<script src="data/testi.js?v=20261015d"></script>
+<script src="js/util.js?v=20261015d"></script>
 <script src="js/i18n.js"></script>
-<script src="js/impila.js?v=20261015c"></script>
-<script src="js/render.js?v=20261015c"></script>
-<script src="js/cielo.js?v=20261015c"></script>
-<script src="js/torre.js?v=20261015c"></script>
-<script src="js/pezzi.js?v=20261015c"></script>
-<script src="js/lab.js?v=20261015c"></script>
-<script src="js/mondi.js?v=20261015c"></script>
-<script src="js/effetti.js?v=20261015c"></script>
-<script src="js/libera.js?v=20261015c"></script>
-<script src="js/countdown.js?v=20261015c"></script>
-<script src="js/form.js?v=20261015c"></script>
-<script src="js/scroll.js?v=20261015c"></script>
-<script src="js/vetrine.js?v=20261015c"></script>
-<script src="js/fluido.js?v=20261015c"></script>
-<script src="js/main.js?v=20261015c"></script>
+<script src="js/impila.js?v=20261015d"></script>
+<script src="js/render.js?v=20261015d"></script>
+<script src="js/cielo.js?v=20261015d"></script>
+<script src="js/torre.js?v=20261015d"></script>
+<script src="js/pezzi.js?v=20261015d"></script>
+<script src="js/lab.js?v=20261015d"></script>
+<script src="js/mondi.js?v=20261015d"></script>
+<script src="js/effetti.js?v=20261015d"></script>
+<script src="js/libera.js?v=20261015d"></script>
+<script src="js/countdown.js?v=20261015d"></script>
+<script src="js/form.js?v=20261015d"></script>
+<script src="js/scroll.js?v=20261015d"></script>
+<script src="js/vetrine.js?v=20261015d"></script>
+<script src="js/fluido.js?v=20261015d"></script>
+<script src="js/main.js?v=20261015d"></script>
 </body>
 </html>
