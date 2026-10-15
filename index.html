@@ -15,10 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/componenti.css">
-<link rel="stylesheet" href="css/sezioni.css">
-<link rel="stylesheet" href="css/fluido.css">
+<link rel="stylesheet" href="css/base.css?v=20261015">
+<link rel="stylesheet" href="css/componenti.css?v=20261015">
+<link rel="stylesheet" href="css/sezioni.css?v=20261015">
+<link rel="stylesheet" href="css/fluido.css?v=20261015">
+<link rel="stylesheet" href="css/vetrine.css?v=20261015">
 <script>document.documentElement.className = "js";</script>
 </head>
 <body>
@@ -264,7 +265,13 @@
       </div>
       <div class="card titles" data-rv="pop">
         <h3 data-t="cu3_h"></h3><p data-t="cu3_p"></p>
-        <div class="targhe" id="targhe"></div>
+        <div class="carosello" id="carosello">
+          <div class="car-track targhe" id="targhe"></div>
+          <button class="car-arr prev" type="button" id="carPrev" data-t-aria="car_prev">&#8249;</button>
+          <button class="car-arr next" type="button" id="carNext" data-t-aria="car_next">&#8250;</button>
+        </div>
+        <p class="car-cap" id="carCap" aria-live="polite"></p>
+        <div class="car-dots" id="carDots" aria-hidden="true"></div>
       </div>
     </div>
   </section>
@@ -343,7 +350,7 @@
   <div class="ks-block" id="status">
     <div class="ks-in">
       <div class="sec-head"><h2 class="pl" data-t="status_h"></h2><p class="lede" data-t="status_p"></p></div>
-      <div class="status" id="statuslist"></div>
+      <div class="stato" id="statuslist" data-rv="pop"></div>
     </div>
   </div>
 
@@ -408,24 +415,25 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/matter.min.js"></script>
-<script src="data/config.js"></script>
-<script src="js/ks-flag.js"></script>
-<script src="data/testi.js"></script>
-<script src="js/util.js"></script>
+<script src="data/config.js?v=20261015"></script>
+<script src="js/ks-flag.js?v=20261015"></script>
+<script src="data/testi.js?v=20261015"></script>
+<script src="js/util.js?v=20261015"></script>
 <script src="js/i18n.js"></script>
-<script src="js/impila.js"></script>
-<script src="js/render.js"></script>
-<script src="js/cielo.js"></script>
-<script src="js/torre.js"></script>
-<script src="js/pezzi.js"></script>
-<script src="js/lab.js"></script>
-<script src="js/mondi.js"></script>
-<script src="js/effetti.js"></script>
-<script src="js/libera.js"></script>
-<script src="js/countdown.js"></script>
-<script src="js/form.js"></script>
-<script src="js/scroll.js"></script>
-<script src="js/fluido.js"></script>
-<script src="js/main.js"></script>
+<script src="js/impila.js?v=20261015"></script>
+<script src="js/render.js?v=20261015"></script>
+<script src="js/cielo.js?v=20261015"></script>
+<script src="js/torre.js?v=20261015"></script>
+<script src="js/pezzi.js?v=20261015"></script>
+<script src="js/lab.js?v=20261015"></script>
+<script src="js/mondi.js?v=20261015"></script>
+<script src="js/effetti.js?v=20261015"></script>
+<script src="js/libera.js?v=20261015"></script>
+<script src="js/countdown.js?v=20261015"></script>
+<script src="js/form.js?v=20261015"></script>
+<script src="js/scroll.js?v=20261015"></script>
+<script src="js/vetrine.js?v=20261015"></script>
+<script src="js/fluido.js?v=20261015"></script>
+<script src="js/main.js?v=20261015"></script>
 </body>
 </html>

@@ -43,9 +43,17 @@
   }
 
   /* ---- titoli (le skin, i basamenti e i pet stanno in lab.js) ---- */
+  /* titoli: carosello (8 targhe; la logica di scorrimento sta in js/vetrine.js) */
+  var TARGHE = [["figlio_delle_pianure", "tt_figlio", "w"], ["signore_del_ghiaccio", "tt_ghiaccio", "w"], ["re_della_lava", "tt_lava", "w"], ["maestro_delle_torri", "tt_maestro", "w"],
+    ["apprendista_sostenitore", "t1_n", "b"], ["costruttore_sostenitore", "t2_n", "b"], ["ingegnere_sostenitore", "t3_n", "b"], ["arcangelo_dell_architettura", "t5_n", "b"]];
+  T.TARGHE = TARGHE;
   function renderTarghe() {
-    $("targhe").innerHTML = targa("figlio_delle_pianure", t("tt_figlio")) + targa("signore_del_ghiaccio", t("tt_ghiaccio")) + targa("re_della_lava", t("tt_lava")) + targa("maestro_delle_torri", t("tt_maestro"));
+    $("targhe").innerHTML = TARGHE.map(function (x, i) {
+      return '<button type="button" class="car-item" data-i="' + i + '" style="--r:' + (i % 2 ? 2 : -2) + 'deg" aria-label="' + t(x[1]) + '">' + targa(x[0], t(x[1])) + "</button>";
+    }).join("");
+    T.caroselloTarghe && T.caroselloTarghe();
   }
+
   /* ---- costruzione libera: il telefono con la clip ---- */
   function renderFreePhone() { $("freePhone").innerHTML = clip("libera"); T.watchClips($("freePhone")); }
 
@@ -55,14 +63,18 @@
   }
 
   /* ---- stato dei lavori ---- */
+  var STATI = [["s1", 3, "I"], ["s2", 3, "O"], ["s3", 2, "T"], ["s4", 2, "L"], ["s5", 2, "J"], ["s6", 1, "S"], ["s7", 2, "Z"], ["s8", 1, "I"], ["s9", 1, "O"], ["s10", 2, "T"], ["s11", 2, "L"], ["s12", 2, "J"]];
+  T.STATI = STATI;
+  function pips(n) { var m = ""; for (var i = 1; i <= 4; i++) m += "<i" + (i <= n ? ' class="on"' : "") + "></i>"; return '<span class="pips" aria-hidden="true">' + m + "</span>"; }
   function renderStatus() {
     if (!$("statuslist")) return;
-    var rows = [["s1", 3], ["s2", 3], ["s3", 2], ["s4", 2], ["s5", 2], ["s6", 1], ["s7", 2], ["s8", 1], ["s9", 1], ["s10", 2], ["s11", 2], ["s12", 2]];
-    $("statuslist").innerHTML = rows.map(function (r) {
-      var lv = r[1] === 1 ? "lv1" : r[1] === 2 ? "lv2" : "lv3", m = "";
-      for (var i = 1; i <= 4; i++) m += "<i" + (i <= r[1] ? ' class="on"' : "") + "></i>";
-      return '<div class="st" data-rv="up"><div class="top"><b>' + t(r[0] + "_t") + '</b><span class="lv">' + t(lv) + '</span></div><div class="meter" aria-hidden="true">' + m + "</div><p>" + t(r[0] + "_d") + "</p></div>";
-    }).join("");
+    var pct = Math.round(STATI.reduce(function (a, s) { return a + s[1]; }, 0) / (STATI.length * 4) * 100);
+    $("statuslist").innerHTML =
+      '<div class="anello" data-pct="' + pct + '"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="a-bg" cx="60" cy="60" r="50"/><circle class="a-fg" cx="60" cy="60" r="50"/></svg><span class="a-in"><b>' + pct + '%</b><small>' + t("st_ring") + "</small></span></div>" +
+      '<div class="st-right"><div class="pastiglie">' + STATI.map(function (s, i) {
+        return '<button type="button" class="pastiglia" data-i="' + i + '" aria-label="' + t(s[0] + "_t") + ", " + t("lv" + s[1]) + '"><img src="' + T.pieceSrc(s[2], "lego") + '" alt="" width="30" height="20">' + t(s[0] + "_t") + pips(s[1]) + "</button>";
+      }).join("") + '</div><p class="st-cap" aria-live="polite"><b>' + t("st_tap") + "</b>" + t("st_tap_d") + "</p></div>";
+    T.statoVivo && T.statoVivo();
   }
 
   /* ---- ricompense ---- */
