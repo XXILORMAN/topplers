@@ -352,3 +352,24 @@ window.TESTI = {
   };
   Object.keys(N).forEach(function (l) { Object.assign(window.TESTI[l], N[l]); });
 })();
+
+/* ---------- maxi schermo col trailer e social ---------- */
+(function () {
+  var N = {
+    en: { why_lede: `Nothing locks into place by magic: every piece has weight, friction and a centre of mass, and physics decides whether the tower holds. See how it ends.`,
+      tr_aria: `Topplers trailer`, tr_ch: `Chapter {n} of {t}`, tr_hint: `Trailer · 7 chapters · tap the bar to jump`, tr_full: `Watch the full trailer`, tr_pause: `Pause`, tr_play: `Play`,
+      tr_giganti: `Giant pieces`, tr_vento: `The wind`, tr_libera: `Free build`, tr_pet: `The pets`,
+      tr_k1: `Every piece has weight, friction and a centre of mass: a steady hand keeps the tower standing.`,
+      tr_k2: `Nothing snaps into place. You place a piece, and physics decides whether it holds.`,
+      tr_k3: `Wind, ice and lava change the rules from one world to the next.`,
+      soc_h: `Follow the tower as it grows`, soc_p: `New clips, behind the scenes and the first games.`, soc_soon: `coming soon`, soc_yt: `Trailer and games`, soc_follow: `Follow us` },
+    it: { why_lede: `Niente si incastra per magia: ogni pezzo ha peso, attrito e baricentro, e la fisica decide se la torre regge. Guarda come va a finire.`,
+      tr_aria: `Trailer di Topplers`, tr_ch: `Capitolo {n} di {t}`, tr_hint: `Trailer · 7 capitoli · tocca la barra per saltare`, tr_full: `Guarda il trailer completo`, tr_pause: `Pausa`, tr_play: `Riprendi`,
+      tr_giganti: `Pezzi giganti`, tr_vento: `Il vento`, tr_libera: `Costruzione libera`, tr_pet: `I pet`,
+      tr_k1: `Ogni pezzo ha peso, attrito e baricentro: una mano ferma tiene in piedi la torre.`,
+      tr_k2: `Niente scatta al suo posto. Posi un pezzo e la fisica decide se regge.`,
+      tr_k3: `Vento, ghiaccio e lava cambiano le regole da un mondo all'altro.`,
+      soc_h: `Segui la torre mentre cresce`, soc_p: `Clip nuove, dietro le quinte e le prime partite.`, soc_soon: `in arrivo`, soc_yt: `Trailer e partite`, soc_follow: `Seguici` }
+  };
+  Object.keys(N).forEach(function (l) { Object.assign(window.TESTI[l], N[l]); });
+})();

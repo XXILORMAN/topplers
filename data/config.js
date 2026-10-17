@@ -10,5 +10,11 @@ window.CONFIG = {
   /* Indirizzo che riceve l'email (Formspree, Buttondown, Mailchimp...). Se vuoto il modulo conferma ma non invia niente. */
   FORM_ENDPOINT: "",
   /* Email di contatto scritta nella pagina privacy.html (obbligatoria per Google Play). Finche' e' vuota la pagina mostra un segnaposto rosso. */
+  /* Profili social. Finche' un indirizzo e' vuoto il suo tasto resta spento con la scritta "in arrivo". */
+  INSTAGRAM_URL: "",
+  TIKTOK_URL: "",
+  YOUTUBE_URL: "",
+  /* Link al trailer completo (es. su YouTube). Se c'e', sotto il maxi schermo compare il tasto "Guarda il trailer completo". */
+  TRAILER_URL: "",
   CONTATTO_EMAIL: "topplersofficial@gmail.com"
 };

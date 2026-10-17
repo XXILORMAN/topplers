@@ -51,11 +51,6 @@
 .float img { display: block; animation: bob 5s ease-in-out infinite; }
 @keyframes bob { 50% { translate: 0 -14px; rotate: 6deg; } }
 
-/* ---------- perche' ---------- */
-.why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.why .ico { width: 56px; height: 56px; transition: transform .4s cubic-bezier(.3, 1.8, .5, 1); }
-.why .card:hover .ico { transform: rotate(-12deg) scale(1.15) translateY(-4px); }
-.why p { color: var(--ink2); }
 
 /* ---------- potenziamenti ---------- */
 .pus { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
@@ -249,7 +244,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; justify-content: 
   .hero-grid { grid-template-columns: 1fr; }
   .hero-art { min-height: 420px; }
   .hero .orb { width: 96px; height: 96px; }
-  .why, .status, .tiers, .lab { grid-template-columns: minmax(0, 1fr); }
+  .status, .tiers, .lab { grid-template-columns: minmax(0, 1fr); }
   .free { grid-template-columns: minmax(0, 1fr); grid-template-areas: "testo" "torre" "alt"; }
   .sali { height: clamp(420px, 70vh, 520px); }
   .tier.wide { grid-column: auto; }
