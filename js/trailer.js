@@ -58,7 +58,7 @@
   function pause() { fermo = true; sosta(); fg.pause(); tasto(); }
 
   function social() {
-    var C = window.CONFIG || {}, L = [["ig", "Instagram", C.INSTAGRAM_URL, "@topplers"], ["tt", "TikTok", C.TIKTOK_URL, "@topplers"], ["yt", "YouTube", C.YOUTUBE_URL, t("soc_yt")]];
+    var C = window.CONFIG || {}, L = [["ig", "Instagram", C.INSTAGRAM_URL, "@topplers.official"], ["tt", "TikTok", C.TIKTOK_URL, "@topplers.official"], ["yt", "YouTube", C.YOUTUBE_URL, t("soc_yt")]];
     $("socs").innerHTML = L.map(function (s) {
       var body = ICO[s[0]] + "<span>" + s[1] + "<small>" + (s[2] ? s[3] : t("soc_soon")) + "</small></span>";
       return s[2] ? '<a class="soc ' + s[0] + '" href="' + s[2] + '" target="_blank" rel="noopener">' + body + "</a>"

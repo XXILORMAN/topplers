@@ -84,13 +84,21 @@
         .to(it.el, { scaleX: 1, duration: .38, ease: "back.out(2.6)", clearProps: "transform" });
     });
   }
+  /* il basamento come in partita: in cima il piano largo, sotto la colonna stretta. Il disegno e' un foglio solo (300 px di larghezza):
+     le prime CAP righe sono il piano, il resto la colonna; i due pezzi si ritagliano dallo stesso foglio. */
+  var CAP = { isola_volante: [150, 862] };
+  function vestiBase(b) {
+    var m = CAP[b] || [128, 784];
+    baseEl.querySelectorAll("span").forEach(function (s) { s.style.backgroundImage = "url(assets/basamenti/" + b + ".webp)"; });
+    baseEl.style.setProperty("--cap", m[0]); baseEl.style.setProperty("--sh", m[1]);
+  }
   function setBase(b) {
     if (b === st.base) return;
     st.base = b; pressed("labBases", "data-base", b); label();
-    if (T.reduce) { baseEl.src = "assets/basamenti/" + b + ".webp"; return; }
+    if (T.reduce) { vestiBase(b); return; }
     gsap.timeline()
       .to(baseEl, { y: cell * 2.2, duration: .22, ease: "power2.in" })
-      .add(function () { baseEl.src = "assets/basamenti/" + b + ".webp"; })
+      .add(function () { vestiBase(b); })
       .fromTo(baseEl, { y: cell * 2.2 }, { y: 0, duration: .7, ease: "elastic.out(1,.5)", clearProps: "transform" })
       .fromTo(stack, { y: -cell * .35 }, { y: 0, duration: .5, ease: "bounce.out", clearProps: "transform" }, "<.25");
   }
@@ -128,7 +136,7 @@
 
   T.initLab = function () {
     stage = $("labStage"); stack = $("labStack"); baseEl = $("labBase"); petEl = $("labPet"); nameEl = $("labName");
-    baseEl.src = "assets/basamenti/" + st.base + ".webp";
+    vestiBase(st.base);
     measure(); build();
     T.onLang(renderControls);
     $("labSkins").addEventListener("click", function (e) { var b = e.target.closest("[data-skin]"); if (b) { stopAuto(); setSkin(b.getAttribute("data-skin")); } });
