@@ -79,6 +79,13 @@
     }, { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: box, start: "top 90%", end: "top 38%", scrub: .8, invalidateOnRefresh: true } });
   }
 
+  /* sul telefono: le carte entrano una volta sola, senza essere legate al dito */
+  function fanLite() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll("#pulist .pu")); if (!cards.length) return;
+    gsap.set(cards, { opacity: 0, y: 40 });
+    ScrollTrigger.create({ trigger: $("pulist"), start: "top 92%", once: true, onEnter: function () { gsap.to(cards, { opacity: 1, y: 0, duration: .6, ease: "power3.out", stagger: .06, clearProps: "transform,opacity" }); } });
+  }
+
   /* ---------- 4. inclinazione con la velocita' ---------- */
   function skew() {
     var sel = ".why .card, .tiers .tier, .lab, .altimetro, .risk, .who, .simcard, .road li";
@@ -125,6 +132,7 @@
   T.initEffetti = function () {
     ribbons();
     if (T.reduce) { document.addEventListener("tp:lang", ribbons); road(); document.querySelectorAll("#road li").forEach(function (li) { li.classList.add("on"); }); return; }
+    if (T.lite) { fanLite(); road(); tickRibbons(); document.addEventListener("tp:lang", function () { ribbons(); road(); }); return; }
     ledes(); fan(); road(); climber(); skew(); magnetic(); tickRibbons();
     document.addEventListener("tp:lang", function () { ribbons(); ledes(); fan(); road(); ribbonState.forEach(function (r) { new IntersectionObserver(function (v) { r.on = v[0].isIntersecting; }, { rootMargin: "200px" }).observe(r.el); }); });
     window.addEventListener("load", measureRibbons);

@@ -26,3 +26,29 @@ body.nav-hidden .ks-tabs { top: 12px; }
 .ks-block + .ks-block { border-top: 2px dashed rgba(26, 46, 71, .18); }
 .ks-block .sec-head { margin-bottom: 32px; }
 @media (max-width: 700px) { .ks-tabs { top: 58px; width: auto; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .ks-tabs a { white-space: nowrap; padding: 8px 12px; } }
+
+/* ===== modalita' leggera (telefoni): niente sfocature a schermo intero, niente ombre moltiplicate, scorrimento libero ===== */
+.lite .nav, .lite .ks-tabs { backdrop-filter: none; -webkit-backdrop-filter: none; background: #fffdf5; }
+.lite .tv-bg { display: none; }
+.lite .tv-scr { background: radial-gradient(circle at 50% 40%, #1d3a63, #0d1726 70%); }
+/* i titoli di plastica: un contorno solo invece di cinque filtri per ogni titolo */
+.lite .pl { filter: drop-shadow(0 .07em 0 #8c2b0d); -webkit-text-stroke: .02em #8c2b0d; }
+.lite .pl .c { will-change: auto; }
+.lite .logo span { filter: drop-shadow(0 2px 0 #8c2b0d); }
+.lite .marchio.vivo .lettera, .lite .pila .pz { touch-action: pan-y; }
+.lite .rb-track img, .lite .climber, .lite .car-item img { filter: none; }
+.lite .tier.top::before { animation: none; }
+.lite .hs-fx i:nth-child(n+7) { display: none; }
+.lite .hs-fx.wind i:nth-child(n+4) { display: none; }
+.lite .float:nth-child(n+4) { display: none; }
+.lite .cloud:nth-child(n+4) { display: none; }
+.lite .hs-smoke, .lite .mill-sails { animation-duration: 30s; }
+
+/* mondi sul telefono: una corsia che si scorre col dito (aggancio nativo), niente pannello bloccato dallo scorrimento della pagina */
+.hs-swipe.hs-on .hs-track { position: relative; width: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; will-change: auto; -webkit-overflow-scrolling: touch; }
+.hs-swipe .hs-track::-webkit-scrollbar { display: none; }
+.hs-swipe .hs-panel { scroll-snap-align: start; scroll-snap-stop: always; }
+.hs-swipe .hs-earth { will-change: transform; }
+.hs-swipe .sw-in .hs-text > *, .hs-swipe .sw-in .hs-phone { opacity: 0; translate: 0 22px; transition: opacity .5s ease-out, translate .5s ease-out; }
+.hs-swipe .sw-in.vista .hs-text > *, .hs-swipe .sw-in.vista .hs-phone, .hs-swipe .hs-intro .hs-text > * { opacity: 1; translate: 0 0; }
+.hs-swipe .sw-in.vista .hs-text > :nth-child(2) { transition-delay: .06s } .hs-swipe .sw-in.vista .hs-text > :nth-child(3) { transition-delay: .12s } .hs-swipe .sw-in.vista .hs-text > :nth-child(4) { transition-delay: .18s }

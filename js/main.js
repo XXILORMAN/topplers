@@ -15,8 +15,8 @@
   T.initCielo();
   T.initLogo();
   T.initFloaters();
-  T.Pila(T.$("pilaHero"), { count: small ? 7 : 12, floor: small ? 54 : 62, spawnOn: T.$("hero") });
-  T.Pila(T.$("pilaClose"), { count: small ? 9 : 16, floor: 56, max: 30, skins: T.CLASSICHE, spawnOn: T.$("join"), rate: 120 });
+  T.Pila(T.$("pilaHero"), T.lite ? { count: 4, max: 7, floor: small ? 54 : 62, spawnOn: T.$("hero"), rate: 260 } : { count: small ? 7 : 12, floor: small ? 54 : 62, spawnOn: T.$("hero") });
+  T.Pila(T.$("pilaClose"), T.lite ? { count: 5, max: 9, floor: 56, skins: T.CLASSICHE, spawnOn: T.$("join"), rate: 220 } : { count: small ? 9 : 16, floor: 56, max: 30, skins: T.CLASSICHE, spawnOn: T.$("join"), rate: 120 });
   T.initTorre();
   T.initMondi();
   T.initScroll();

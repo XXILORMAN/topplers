@@ -8,6 +8,9 @@ window.Topplers = window.Topplers || {};
   T.CELL_PX = 42.25; /* una cella nei fogli dei pezzi */
   T.reduce = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   T.fine = !!(window.matchMedia && matchMedia("(pointer: fine)").matches);
+  /* modalita' leggera: telefoni e tablet al tocco, schermi piccoli, poca memoria o risparmio dati. Meno pezzi, meno effetti, nessun blocco dello scorrimento. */
+  T.lite = !!((window.matchMedia && (matchMedia("(pointer: coarse)").matches || matchMedia("(max-width: 760px)").matches)) || (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.connection && navigator.connection.saveData));
+  if (T.lite) document.documentElement.classList.add("lite");
   T.$ = function (id) { return document.getElementById(id); };
 
   T.rotCells = function (cells, r) {

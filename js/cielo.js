@@ -36,15 +36,15 @@
   function rnd(a, b) { return a + Math.random() * (b - a); }
   function seed() {
     stars = []; clouds = []; snow = []; embers = []; streaks = [];
-    for (var i = 0; i < 140; i++) stars.push({ x: Math.random(), y: Math.random() * .8, r: rnd(.7, 2), p: rnd(0, 6), s: rnd(.6, 2.4) });
-    for (i = 0; i < 7; i++) clouds.push({ x: Math.random(), y: rnd(.06, .5), s: rnd(.7, 1.5), v: rnd(.004, .012) });
-    for (i = 0; i < 80; i++) snow.push({ x: Math.random(), y: Math.random(), r: rnd(1, 3.2), v: rnd(.03, .09), d: rnd(0, 6) });
-    for (i = 0; i < 56; i++) embers.push({ x: Math.random(), y: Math.random(), r: rnd(1.2, 3), v: rnd(.03, .1), d: rnd(0, 6) });
-    for (i = 0; i < 14; i++) streaks.push({ x: Math.random(), y: rnd(.1, .8), l: rnd(60, 160), v: rnd(.18, .4) });
+    var L = T.lite; for (var i = 0; i < (L ? 50 : 140); i++) stars.push({ x: Math.random(), y: Math.random() * .8, r: rnd(.7, 2), p: rnd(0, 6), s: rnd(.6, 2.4) });
+    for (i = 0; i < (L ? 4 : 7); i++) clouds.push({ x: Math.random(), y: rnd(.06, .5), s: rnd(.7, 1.5), v: rnd(.004, .012) });
+    for (i = 0; i < (L ? 32 : 80); i++) snow.push({ x: Math.random(), y: Math.random(), r: rnd(1, 3.2), v: rnd(.03, .09), d: rnd(0, 6) });
+    for (i = 0; i < (L ? 24 : 56); i++) embers.push({ x: Math.random(), y: Math.random(), r: rnd(1.2, 3), v: rnd(.03, .1), d: rnd(0, 6) });
+    for (i = 0; i < (L ? 6 : 14); i++) streaks.push({ x: Math.random(), y: rnd(.1, .8), l: rnd(60, 160), v: rnd(.18, .4) });
   }
 
   function size() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    dpr = T.lite ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
     W = window.innerWidth; H = window.innerHeight;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
   }
@@ -58,7 +58,7 @@
   }
   function hills(base, amp, phase, freq, color, parallax) {
     ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(0, H);
-    var n = 28;
+    var n = T.lite ? 14 : 28;
     for (var i = 0; i <= n; i++) { var x = W * i / n; ctx.lineTo(x, base - amp * (1 + Math.sin(i * freq + phase * parallax)) * .5 - amp * .35 * Math.sin(i * freq * 2.3 + phase * parallax * 1.7)); }
     ctx.lineTo(W, H); ctx.fill();
   }
@@ -118,6 +118,7 @@
   var last = 0, running = true;
   function frame(now) {
     requestAnimationFrame(frame);
+    if (T.lite && now - last < 30) return; /* sul telefono il cielo gira a 30 fotogrammi: il resto va allo scorrimento */
     var dt = Math.min(.05, (now - last) / 1000); last = now;
     if (document.hidden || !running) return;
     var y = window.scrollY; vel += ((y - lastY) / Math.max(dt, .001) - vel) * .18; lastY = y;

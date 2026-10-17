@@ -73,7 +73,10 @@
 
     /* quanto deve scorrere la pista: dai pannelli, NON da `track.scrollWidth` (ci entrerebbe anche il terreno, che si allunga di quanto scorre: un anello) */
     function dist() { return Math.max(0, n * panels[0].offsetWidth - pin.clientWidth); }
-    var tween = gsap.to(track, { x: function () { return -dist(); }, ease: "none" });
+    /* sul telefono niente pannello bloccato con lo scorrimento "legato": la corsia si scorre col dito, con l'aggancio nativo del browser */
+    var swipe = T.lite, swipeP = 0;
+    if (swipe) sec.classList.add("hs-swipe");
+    var tween = swipe ? null : gsap.to(track, { x: function () { return -dist(); }, ease: "none" });
 
     /* La striscia di terreno: figlia della pista (sta sotto le schede e sopra la scritta), spostata di (1-F) rispetto a lei. */
     var earth = document.createElement("div");
@@ -135,12 +138,46 @@
         '<mask id="eMask" maskUnits="userSpaceOnUse" x="0" y="0" width="' + Wg + '" height="' + H + '"><rect width="' + Wg + '" height="' + H + '" fill="url(#eRamp)"/></mask></defs>' +
         '<path d="' + path(back) + '" fill="url(#eBack)"/><path d="' + front + '" fill="url(#eFront)"/><path d="' + front + '" fill="url(#eLava)" mask="url(#eMask)"/></svg>');
     }
-    function moveEarth() { gsap.set(earth, { x: (1 - F) * dist() * tween.progress() }); }
-    tween.eventCallback("onUpdate", moveEarth);
+    function moveEarth() { earth.style.transform = "translate3d(" + ((1 - F) * dist() * (tween ? tween.progress() : swipeP)).toFixed(1) + "px,0,0)"; }
+    if (tween) tween.eventCallback("onUpdate", moveEarth);
     buildEarth(); moveEarth();
-    ScrollTrigger.addEventListener("refreshInit", function () { buildEarth(); moveEarth(); });
     var cur = -1, sky = -1, fill = $("hsFill");
-    var st = ScrollTrigger.create({
+    if (swipe) { initSwipe(); return; }
+    ScrollTrigger.addEventListener("refreshInit", function () { buildEarth(); moveEarth(); });
+    function initSwipe() {
+      var tick = false, rt;
+      function paint() {
+        tick = false;
+        var d = dist() || 1, p = Math.max(0, Math.min(1, track.scrollLeft / d)), pos = p * (n - 1), idx = Math.round(pos);
+        swipeP = p; moveEarth();
+        fill.style.transform = "scaleX(" + p.toFixed(3) + ")";
+        if (idx !== cur) {
+          cur = idx;
+          $("hsStops").querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", +b.getAttribute("data-i") === idx); });
+        }
+        var s = Math.min(n - 1, Math.floor(pos + .65));
+        if (s !== sky) { sky = s; T.setWorld(SKY[s]); }
+      }
+      track.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(paint); } }, { passive: true });
+      /* il cielo cambia solo quando la sezione si vede */
+      new IntersectionObserver(function (v) { if (v[0].isIntersecting && sky >= 0) T.setWorld(SKY[sky]); }, { threshold: .4 }).observe(pin);
+      $("hsStops").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-i]"); if (!b) return;
+        track.scrollTo({ left: +b.getAttribute("data-i") * panels[0].offsetWidth, behavior: "smooth" });
+      });
+      /* i testi di un pannello entrano quando ci si arriva, una volta sola, con una semplice dissolvenza */
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("vista"); io.unobserve(e.target); } });
+      }, { root: track, threshold: .45 });
+      panels.forEach(function (p) { p.classList.add("sw-in"); io.observe(p); });
+      var wd = window.innerWidth;
+      window.addEventListener("resize", function () {
+        if (window.innerWidth === wd) return; wd = window.innerWidth;
+        clearTimeout(rt); rt = setTimeout(function () { fitBig(); buildEarth(); paint(); }, 150);
+      });
+      paint();
+    }
+    var st = swipe ? null : ScrollTrigger.create({
       trigger: pin, start: function () { return "top top+=" + navH(); },
       end: function () { return "+=" + Math.round(dist() * (window.innerWidth < 700 ? 1.3 : .95)); },
       pin: true, scrub: 1, animation: tween, invalidateOnRefresh: true, anticipatePin: 1, refreshPriority: 10,
@@ -159,7 +196,7 @@
       },
       onToggle: function (self) { if (self.isActive && sky >= 0) T.setWorld(SKY[sky]); }
     });
-    $("hsStops").addEventListener("click", function (e) {
+    if (st) $("hsStops").addEventListener("click", function (e) {
       var b = e.target.closest("button[data-i]"); if (!b) return;
       window.scrollTo({ top: st.start + (+b.getAttribute("data-i") / (n - 1)) * (st.end - st.start), behavior: "smooth" });
     });
