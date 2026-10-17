@@ -104,7 +104,7 @@
     function skinFor() { return skins ? skins[Math.floor(Math.random() * skins.length)] : T.skin; }
     function build() {
       measure();
-      engine = M.Engine.create({ enableSleeping: true, positionIterations: 8, velocityIterations: 6 }); engine.gravity.y = 1.1;
+      engine = M.Engine.create({ enableSleeping: true, positionIterations: T.lite ? 4 : 8, velocityIterations: T.lite ? 3 : 6 }); engine.gravity.y = 1.1;
       var floor = M.Bodies.rectangle(W / 2, H - floorOff + 30, W * 3, 60, { isStatic: true, friction: 1 });
       var l = M.Bodies.rectangle(-30, H / 2 - 400, 60, H * 2 + 800, { isStatic: true }), r = M.Bodies.rectangle(W + 30, H / 2 - 400, 60, H * 2 + 800, { isStatic: true });
       statics = [floor, l, r]; M.Composite.add(engine.world, statics);
@@ -121,6 +121,7 @@
       M.Composite.add(engine.world, body);
       var cx = 0, cy = 0; cells.forEach(function (c) { cx += c[0] + .5; cy += c[1] + .5; }); cx = cx / 4 * cs; cy = cy / 4 * cs;
       var el = document.createElement("img"); el.className = "pz"; el.alt = ""; el.draggable = false;
+      if (T.lite) el.style.touchAction = "pan-y"; /* scorrere la pagina vince sul trascinare: il pezzo si afferra con un tocco fermo o in orizzontale */
       el.src = T.pieceSrc(kind, skin); el.width = Math.round(d.w * cs); el.height = Math.round(d.h * cs); el.style.transformOrigin = cx + "px " + cy + "px";
       box.appendChild(el);
       var p = { body: body, el: el, kind: kind, cx: cx, cy: cy };
@@ -140,6 +141,8 @@
     function draw() {
       for (var i = 0; i < list.length; i++) {
         var p = list[i], b = p.body;
+        if (b.isSleeping && p.fermo) continue;
+        p.fermo = b.isSleeping;
         p.el.style.transform = "translate(" + (b.position.x - p.cx) + "px," + (b.position.y - p.cy) + "px) rotate(" + b.angle + "rad)";
         if (b.position.y > H + 500) { M.Body.setPosition(b, { x: Math.random() * W, y: -80 }); M.Body.setVelocity(b, { x: 0, y: 0 }); M.Sleeping.set(b, false); }
       }
@@ -148,7 +151,9 @@
       if (!run) return;
       acc += Math.min(now - (ultimo || now), 50); ultimo = now;
       tilt += (tiltT - tilt) * .08; engine.gravity.x = tilt;
-      while (acc >= 1000 / 60) { M.Engine.update(engine, 1000 / 60); acc -= 1000 / 60; }
+      var passi = 0;
+      while (acc >= 1000 / 60 && passi < (T.lite ? 2 : 4)) { M.Engine.update(engine, 1000 / 60); acc -= 1000 / 60; passi++; }
+      if (acc > 1000 / 60) acc = 0; /* se il telefono non ce la fa il tempo rallenta, non si accumula */
       draw(); requestAnimationFrame(loop);
     }
     function start() { if (run || !visible || document.hidden) return; run = true; ultimo = 0; requestAnimationFrame(loop); }

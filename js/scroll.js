@@ -24,6 +24,7 @@
   }
   var heads = [];
   function splitHeads() {
+    if (T.lite) return; /* sul telefono il titolo resta intero: cento lettere con sfumatura da dipingere a ogni fotogramma sono troppe */
     heads.forEach(function (el) {
       var label = el.textContent; splitText(el); el.setAttribute("aria-label", label.replace(/\s+/g, " ").trim());
       if (!el._shown && !T.reduce) gsap.set(el.querySelectorAll(".c"), { opacity: 0 });
@@ -32,12 +33,14 @@
   function animHead(el) {
     el._shown = true;
     if (T.reduce) return;
+    if (T.lite) { gsap.fromTo(el, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: "power3.out", clearProps: "transform,opacity" }); return; }
     gsap.fromTo(el.querySelectorAll(".c"), { y: 70, rotation: function () { return gsap.utils.random(-28, 28); }, scale: .3, opacity: 0 },
       { y: 0, rotation: 0, scale: 1, opacity: 1, duration: .75, ease: "back.out(2.4)", stagger: { each: .028, from: "start" }, clearProps: "transform" });
   }
   function initHeads() {
     heads = Array.prototype.slice.call(document.querySelectorAll("h2.pl, .hero .claim"));
     heads.forEach(function (el) { ScrollTrigger.create({ trigger: el, start: "top 90%", once: true, onEnter: function () { animHead(el); } }); });
+    if (T.lite && !T.reduce) heads.forEach(function (el) { el.style.opacity = 0; });
     splitHeads();
     document.addEventListener("tp:lang", function () { heads.forEach(function (el) { el.removeAttribute("aria-label"); }); /* i testi sono stati riscritti da i18n */ splitHeads(); });
     /* le lettere saltellano al passaggio del puntatore */
@@ -87,6 +90,7 @@
     gsap.from(".hero-copy > *:not(.marchio):not(.claim)", { y: 40, opacity: 0, duration: .8, ease: "power3.out", stagger: .1, delay: .15, clearProps: "transform,opacity" });
     gsap.from(".hero .phone", { y: 140, rotation: -10, opacity: 0, duration: 1.1, ease: "back.out(1.4)", delay: .3, clearProps: "opacity" });
     gsap.from(".hero .orb", { scale: 0, duration: 1, ease: "elastic.out(1,.5)", delay: .5, clearProps: "scale" });
+    if (T.lite) return; /* le parallassi legate allo scorrimento sul telefono fanno solo scattare */
     var st = { trigger: "#hero", start: "top top", end: "bottom top", scrub: true };
     gsap.to(".hero .phone", { yPercent: -14, ease: "none", scrollTrigger: st });
     gsap.to(".hero .orb", { yPercent: -60, ease: "none", scrollTrigger: st });
