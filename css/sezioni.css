@@ -64,7 +64,7 @@
 
 /* ---------- anteprima della torre (personalizzazione) ---------- */
 .lab { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 26px; background: var(--paper); border: 2px solid var(--line); border-radius: 30px; padding: 22px; box-shadow: 0 8px 0 rgba(26, 46, 71, .12); margin-bottom: 22px; align-items: stretch; }
-.lab-stage { --c: 28px; --ps: 1; position: relative; height: calc(var(--c) * 15.8); border-radius: 22px; overflow: hidden; isolation: isolate; border: 3px solid var(--ink);
+.lab-stage { --c: 28px; --ps: 1; position: relative; height: calc(var(--c) * 17.2); border-radius: 22px; overflow: hidden; isolation: isolate; border: 3px solid var(--ink);
   background: linear-gradient(#2f6fcf 0%, #6fb4ee 55%, #ffd9a6 100%); }
 .lab-sun { position: absolute; z-index: 0; right: 9%; top: calc(var(--c) * 1.4); width: calc(var(--c) * 2.6); height: calc(var(--c) * 2.6); border-radius: 50%; background: radial-gradient(circle, #fff6c2 0 38%, #ffe27a 39% 66%, rgba(255, 226, 122, .3) 67% 100%); animation: pulse 5s ease-in-out infinite; }
 .lab-cloud { position: absolute; width: calc(var(--c) * 3.4); height: calc(var(--c) * 1.1); border-radius: 99px; background: rgba(255, 255, 255, .88); z-index: 0; animation: drift2 40s linear infinite; }
@@ -73,8 +73,16 @@
 .lab-cloud.c-b { top: calc(var(--c) * 5.2); left: -25%; scale: .7; animation-duration: 58s; animation-delay: -22s; }
 @keyframes drift2 { to { translate: calc(var(--c) * 17) 0; } }
 .lab-far { position: absolute; z-index: 0; left: -5%; right: -5%; bottom: calc(var(--c) * 1.3); height: calc(var(--c) * 3.2); background: radial-gradient(ellipse at 20% 100%, #9fd37e 0 40%, transparent 41%), radial-gradient(ellipse at 70% 100%, #8cc86a 0 45%, transparent 46%); opacity: .9; }
-.lab-base { position: absolute; z-index: 1; left: 50%; width: calc(var(--c) * 7.1); margin-left: calc(var(--c) * -3.55); top: calc(var(--c) * 10.1); height: auto; max-width: none; user-select: none; -webkit-user-drag: none; }
-.lab-stack { position: absolute; z-index: 2; left: 50%; margin-left: calc(var(--c) * -3.5); bottom: calc(var(--c) * 5.7); width: calc(var(--c) * 7); height: calc(var(--c) * 9); transform-origin: 50% 100%; animation: oscilla 4.6s ease-in-out infinite; }
+/* basamento: piano largo 7,4 celle (come in partita, un po' piu' largo della torre) su una colonna stretta 2,6 celle.
+   Il piano si schiaccia appena in altezza; la colonna conserva le proporzioni del disegno e sparisce dietro il prato. */
+.lab-base { --pw: calc(var(--c) * 7.4); --ph: calc(var(--c) * 2); --cw: calc(var(--c) * 2.6);
+  position: absolute; z-index: 1; left: 50%; top: calc(var(--c) * 10.1); width: 0; height: 0; }
+.lab-base span { position: absolute; background-repeat: no-repeat; }
+.lab-base .cap { left: calc(var(--pw) / -2); top: 0; width: var(--pw); height: var(--ph); background-size: 100% calc(var(--ph) * var(--sh) / var(--cap)); background-position: 50% 0;
+  filter: drop-shadow(0 calc(var(--c) * .12) 0 rgba(0, 0, 0, .18)); }
+.lab-base .col { left: calc(var(--cw) / -2); top: calc(var(--ph) - 2px); width: var(--cw); height: calc(var(--cw) * (var(--sh) - var(--cap)) / 300);
+  background-size: 100% calc(var(--cw) * var(--sh) / 300); background-position: 50% calc(var(--cw) * var(--cap) / -300); }
+.lab-stack { position: absolute; z-index: 2; left: 50%; margin-left: calc(var(--c) * -3.5); bottom: calc(var(--c) * 7.1); width: calc(var(--c) * 7); height: calc(var(--c) * 9); transform-origin: 50% 100%; animation: oscilla 4.6s ease-in-out infinite; }
 /* la torre respira appena, come in partita: ruota sul basamento (rotate, cosi' non litiga coi transform di gsap) */
 @keyframes oscilla { 0%, 100% { rotate: -.5deg; } 50% { rotate: .5deg; } }
 @media (prefers-reduced-motion: reduce) { .lab-stack { animation: none; } }

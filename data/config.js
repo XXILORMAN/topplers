@@ -11,9 +11,9 @@ window.CONFIG = {
   FORM_ENDPOINT: "",
   /* Email di contatto scritta nella pagina privacy.html (obbligatoria per Google Play). Finche' e' vuota la pagina mostra un segnaposto rosso. */
   /* Profili social. Finche' un indirizzo e' vuoto il suo tasto resta spento con la scritta "in arrivo". */
-  INSTAGRAM_URL: "",
-  TIKTOK_URL: "",
-  YOUTUBE_URL: "",
+  INSTAGRAM_URL: "https://www.instagram.com/topplers.official",
+  TIKTOK_URL: "https://www.tiktok.com/@topplers.official",
+  YOUTUBE_URL: "https://www.youtube.com/channel/UC18mvQUY_VLUFYneW3SRBXg",
   /* Link al trailer completo (es. su YouTube). Se c'e', sotto il maxi schermo compare il tasto "Guarda il trailer completo". */
   TRAILER_URL: "",
   CONTATTO_EMAIL: "topplersofficial@gmail.com"
