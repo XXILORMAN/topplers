@@ -10,6 +10,7 @@
   var small = window.innerWidth < 700;
   T.initLab();      /* prima della lingua: cosi' i suoi comandi vengono scritti al primo giro */
   T.initLibera();
+  T.initTrailer();
   T.applyLang();
   T.initCielo();
   T.initLogo();

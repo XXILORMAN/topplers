@@ -15,12 +15,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lilita+One&display=swap">
-<link rel="stylesheet" href="css/base.css?v=20261015d">
-<link rel="stylesheet" href="css/componenti.css?v=20261015d">
-<link rel="stylesheet" href="css/sezioni.css?v=20261015d">
-<link rel="stylesheet" href="css/fluido.css?v=20261015d">
-<link rel="stylesheet" href="css/vetrine.css?v=20261015d">
-<link rel="stylesheet" href="css/ks.css?v=20261015d">
+<link rel="stylesheet" href="css/base.css?v=20261017a">
+<link rel="stylesheet" href="css/componenti.css?v=20261017a">
+<link rel="stylesheet" href="css/sezioni.css?v=20261017a">
+<link rel="stylesheet" href="css/fluido.css?v=20261017a">
+<link rel="stylesheet" href="css/vetrine.css?v=20261017a">
+<link rel="stylesheet" href="css/ks.css?v=20261017a">
+<link rel="stylesheet" href="css/trailer.css?v=20261017a">
 <script>document.documentElement.className = "js";</script>
 </head>
 <body>
@@ -94,23 +95,27 @@
 
   <div class="ribbon-box r1" aria-hidden="true"><div class="ribbon" data-dir="-1"><div class="rb-track"></div></div></div>
 
-  <!-- ===== PERCHE' ===== -->
+  <!-- ===== PERCHE': il maxi schermo col trailer per capitoli, e i social ===== -->
   <section id="why" data-world="plains" data-tp>
     <div class="wrap">
-      <div class="sec-head"><h2 class="pl" data-t="why_h"></h2><p class="lede" data-t="why_p"></p></div>
-      <div class="why">
-        <article class="card" data-rv="pop" data-tilt>
-          <svg class="ico" viewBox="0 0 54 54" aria-hidden="true"><rect x="8" y="30" width="38" height="16" rx="5" fill="#ff8c17" stroke="#9a4d05" stroke-width="3"/><rect x="14" y="12" width="26" height="16" rx="5" fill="#ab4ae8" stroke="#5f1f92" stroke-width="3"/><path d="M18 17h10" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/></svg>
-          <h3 data-t="why1_h"></h3><p data-t="why1_p"></p>
-        </article>
-        <article class="card" data-rv="pop" data-tilt>
-          <svg class="ico" viewBox="0 0 54 54" aria-hidden="true"><path d="M10 44h34" stroke="#3b5770" stroke-width="4" stroke-linecap="round"/><rect x="14" y="20" width="26" height="20" rx="5" fill="#2969f5" stroke="#123a73" stroke-width="3" transform="rotate(12 27 30)"/><path d="M8 12l6 6M46 12l-6 6" stroke="#ed3b36" stroke-width="4" stroke-linecap="round"/></svg>
-          <h3 data-t="why2_h"></h3><p data-t="why2_p"></p>
-        </article>
-        <article class="card" data-rv="pop" data-tilt>
-          <svg class="ico" viewBox="0 0 54 54" aria-hidden="true"><rect x="6" y="32" width="18" height="14" rx="4" fill="#45c940" stroke="#1d6b1a" stroke-width="3"/><rect x="28" y="32" width="18" height="14" rx="4" fill="#1cb8ed" stroke="#0a6e91" stroke-width="3"/><rect x="17" y="14" width="18" height="14" rx="4" fill="#ffc71a" stroke="#9a7400" stroke-width="3"/></svg>
-          <h3 data-t="why3_h"></h3><p data-t="why3_p"></p>
-        </article>
+      <div class="sec-head"><h2 class="pl" data-t="why_h"></h2><p class="lede" data-t="why_lede"></p></div>
+      <div class="tv" data-rv="pop">
+        <div class="tv-scr" id="tvScr">
+          <img class="tv-bg" id="tvBg" src="assets/clip/pianure.webp" alt="" aria-hidden="true">
+          <video class="tv-fg" id="tvFg" muted playsinline loop preload="none" width="540" height="960" poster="assets/clip/pianure.webp" data-t-aria="tr_aria"></video>
+          <div class="tv-cap" id="tvCap" aria-live="polite"></div>
+          <div class="tv-claim" id="tvClaim"></div>
+        </div>
+        <div class="tv-rail" id="tvRail"></div>
+        <div class="tv-bar">
+          <button class="tv-pp" id="tvPP" type="button"></button>
+          <small data-t="tr_hint"></small>
+          <a class="btn sm blue tv-full" id="tvFull" href="#" target="_blank" rel="noopener" data-t="tr_full" hidden></a>
+        </div>
+      </div>
+      <div class="segui">
+        <div><h3 data-t="soc_h"></h3><p data-t="soc_p"></p></div>
+        <div class="socs" id="socs"></div>
       </div>
     </div>
   </section>
@@ -427,31 +432,32 @@
 </main>
 
 <footer>
-  <div class="wrap"><span data-t="foot1"></span><span data-t="foot2"></span><a class="foot-priv" href="privacy.html" data-t="foot_priv"></a></div>
+  <div class="wrap"><span data-t="foot1"></span><span data-t="foot2"></span><span class="foot-socs" id="footSocs"></span><a class="foot-priv" href="privacy.html" data-t="foot_priv"></a></div>
 </footer>
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/matter.min.js"></script>
-<script src="data/config.js?v=20261015d"></script>
-<script src="js/ks-flag.js?v=20261015d"></script>
-<script src="data/testi.js?v=20261015d"></script>
-<script src="js/util.js?v=20261015d"></script>
+<script src="data/config.js?v=20261017a"></script>
+<script src="js/ks-flag.js?v=20261017a"></script>
+<script src="data/testi.js?v=20261017a"></script>
+<script src="js/util.js?v=20261017a"></script>
 <script src="js/i18n.js"></script>
-<script src="js/impila.js?v=20261015d"></script>
-<script src="js/render.js?v=20261015d"></script>
-<script src="js/cielo.js?v=20261015d"></script>
-<script src="js/torre.js?v=20261015d"></script>
-<script src="js/pezzi.js?v=20261015d"></script>
-<script src="js/lab.js?v=20261015d"></script>
-<script src="js/mondi.js?v=20261015d"></script>
-<script src="js/effetti.js?v=20261015d"></script>
-<script src="js/libera.js?v=20261015d"></script>
-<script src="js/countdown.js?v=20261015d"></script>
-<script src="js/form.js?v=20261015d"></script>
-<script src="js/scroll.js?v=20261015d"></script>
-<script src="js/vetrine.js?v=20261015d"></script>
-<script src="js/fluido.js?v=20261015d"></script>
-<script src="js/main.js?v=20261015d"></script>
+<script src="js/impila.js?v=20261017a"></script>
+<script src="js/render.js?v=20261017a"></script>
+<script src="js/cielo.js?v=20261017a"></script>
+<script src="js/torre.js?v=20261017a"></script>
+<script src="js/pezzi.js?v=20261017a"></script>
+<script src="js/lab.js?v=20261017a"></script>
+<script src="js/mondi.js?v=20261017a"></script>
+<script src="js/effetti.js?v=20261017a"></script>
+<script src="js/libera.js?v=20261017a"></script>
+<script src="js/trailer.js?v=20261017a"></script>
+<script src="js/countdown.js?v=20261017a"></script>
+<script src="js/form.js?v=20261017a"></script>
+<script src="js/scroll.js?v=20261017a"></script>
+<script src="js/vetrine.js?v=20261017a"></script>
+<script src="js/fluido.js?v=20261017a"></script>
+<script src="js/main.js?v=20261017a"></script>
 </body>
 </html>
